@@ -1,0 +1,141 @@
+<section class="slide" data-slide="4">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Principios Rectores de la Ley N° 29733: <span class="lime-hl">Arts. 4 al 11</span></div>
+            <div class="topbar-tag">DOGMÁTICA LEGAL & REQUERIMIENTOS DE SOFTWARE TI</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 18px;">
+            <!-- 2-COLUMN PANELS: PRINCIPLES 1-4 vs 5-8 -->
+            <div class="grid-2col" style="height: 600px;">
+                <!-- PANEL 1: ARTS 4 AL 7 -->
+                <div class="glass-panel lime-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 16px; padding-bottom: 12px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 23px;">Principios 1 al 4: Licitud, Consentimiento y Finalidad</div>
+                                <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-primary); margin-top: 3px;">
+                                    REGLAS DE RECOLECCIÓN & DISEÑO FRONTEND / UX
+                                </div>
+                            </div>
+                            <span class="lime-badge" style="font-size: 11px; padding: 5px 10px;">ARTS. 4 AL 7</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 13px; font-size: 15px; line-height: 1.5;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-primary);">ART. 4 • PRINCIPIO DE LEGALIDAD:</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Prohibida la captura fraudulenta, web scraping no autorizado o compra de bases de datos ilícitas (mercado negro de Wilson o filtraciones de la Dark Web).
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-primary);">ART. 5 • PRINCIPIO DE CONSENTIMIENTO (REGLA TI CRÍTICA):</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Debe ser <em>libre, previo, expreso, informado e inequívoco</em>. Las casillas premarcadas (<code style="color: var(--accent-primary); background: var(--bg-canvas); padding: 1px 4px;">checked=true</code>) son dark patterns <strong>ilegales</strong>. Requiere opt-in activo con bitácora inmutable (<code style="color: var(--accent-primary); font-size: 12px;">consent_ts, user_ip, terms_hash</code>).
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-primary);">ART. 6 • PRINCIPIO DE FINALIDAD:</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    El uso debe ser determinado, explícito y lícito. Se prohíbe el <em>function creep</em> (utilizar datos recopilados para facturación con fines de telemarketing no autorizado).
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-primary);">ART. 7 • PRINCIPIO DE PROPORCIONALIDAD (DATA MINIMIZATION):</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Tratamiento adecuado y no excesivo. El esquema de base de datos solo debe almacenar campos estrictamente indispensables para la transacción.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 13px;">
+                        Criterio de Examen: Inversión de carga probatoria: el responsable TI debe probar que obtuvo el consentimiento afirmativo del usuario.
+                    </div>
+                </div>
+
+                <!-- PANEL 2: ARTS 8 AL 11 -->
+                <div class="glass-panel purple-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 16px; padding-bottom: 12px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 23px;">Principios 5 al 8: Calidad, Seguridad y Flujos Cloud</div>
+                                <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-secondary); margin-top: 3px;">
+                                    ARQUITECTURA DE DATOS & CUSTODIA TÉCNICA
+                                </div>
+                            </div>
+                            <span class="purple-badge" style="font-size: 11px; padding: 5px 10px;">ARTS. 8 AL 11</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 13px; font-size: 15px; line-height: 1.5;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-secondary);">ART. 8 • PRINCIPIO DE CALIDAD & TTL:</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Datos exactos, veraces y actualizados. Implementación obligatoria de directivas de retención temporal: <strong>TTL</strong> (Time-To-Live) y rutinas programadas de depuración de cuentas inactivas.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-secondary);">ART. 9 • PRINCIPIO DE SEGURIDAD (R.D. 019-2013-JUS):</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Medidas técnicas obligatorias: cifrado en reposo (AES-256), cifrado en tránsito (TLS 1.3), control granular <strong>RBAC</strong> y bitácoras inmutables para evitar adulteración o fuga de <strong>PII</strong>.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-secondary);">ART. 10 • DISPOSICIÓN DE RECURSO (TUTELA ARCO):</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Garantía de mecanismos técnicos expeditos para ejercer derechos <strong>ARCO</strong>. Los sistemas deben contar con interfaces de autoservicio para consulta y revocación.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-secondary);">ART. 11 • NIVEL DE PROTECCIÓN ADECUADO:</strong>
+                                <p style="margin-top: 2px; color: var(--text-secondary);">
+                                    Transferencias internacionales (hosting en AWS/GCP/Azure): el país de destino o el proveedor de nube debe garantizar estándares equiparables a la Ley N° 29733.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 13px;">
+                        Criterio de Examen: La seguridad no se presume ni se terceriza: el desarrollador y la empresa son solidariamente responsables ante la ANPD.
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARATIVE IMPLEMENTATION DIRECTORY & GLOSSARY -->
+            <div class="glass-panel" style="padding: 16px 24px; background: var(--bg-surface-elevated, var(--bg-surface)); display: flex; flex-direction: column; gap: 12px;">
+                <!-- 3 Engineering Layers -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: center;">
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">CAPA FRONTEND / UX</span><br>
+                        <span style="color: var(--text-secondary);">Casillas desmarcadas por defecto (<code style="color: var(--accent-primary);">opt-in</code>), cláusulas de consentimiento visibles y políticas de privacidad desglosadas por finalidad.</span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">CAPA BACKEND / DB</span><br>
+                        <span style="color: var(--text-secondary);">Esquemas minimizados, hashing robusto de credenciales, cifrado a nivel de campo (PII sensible) y retención gobernada por <strong>TTL</strong>.</span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">CAPA INFRAESTRUCTURA CLOUD</span><br>
+                        <span style="color: var(--text-secondary);">Selección de regiones con nivel adecuado de protección, acuerdos de procesamiento de datos (<code style="color: var(--accent-primary);">DPA</code>) y segmentación Zero Trust.</span>
+                    </div>
+                </div>
+
+                <!-- Acronym Glossary Badges -->
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--border-faint); padding-top: 10px; font-family: var(--font-mono); font-size: 12px;">
+                    <span style="color: var(--accent-primary); font-weight: 700;">GLOSARIO DE PRINCIPIOS TI:</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 3px 8px; color: var(--accent-primary);"><strong>PII:</strong> Personally Identifiable Information</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 3px 8px; color: var(--accent-primary);"><strong>TTL:</strong> Time-To-Live (Caducidad y Purga de Datos)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 3px 8px; color: var(--text-primary);"><strong>RBAC:</strong> Role-Based Access Control</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 3px 8px; color: var(--text-primary);"><strong>DPA:</strong> Data Processing Agreement (Contrato de Encargo)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 3px 8px; color: var(--text-primary);"><strong>ODP / DPO:</strong> Oficial de Datos Personales / Data Protection Officer</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 3px 8px; color: var(--text-primary);"><strong>ARCO:</strong> Acceso, Rectificación, Cancelación, Oposición</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

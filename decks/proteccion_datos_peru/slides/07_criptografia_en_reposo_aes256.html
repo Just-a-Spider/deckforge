@@ -1,0 +1,133 @@
+<section class="slide" data-slide="7">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Criptografía Defensiva en Reposo: <span class="lime-hl">AES-256-GCM & Envelope Encryption</span></div>
+            <div class="topbar-tag">AEAD • 96-BIT NONCE • AAD BINDING • KMS/HSM FIPS 140-3</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 18px;">
+            <!-- 2-COLUMN PANELS: AES-256-GCM vs ENVELOPE ENCRYPTION -->
+            <div class="grid-2col" style="height: 590px;">
+                <!-- PANEL 1: AES-256-GCM & AEAD -->
+                <div class="glass-panel lime-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 23px;">Criptografía Autenticada: AES-256-GCM</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary); margin-top: 2px;">
+                                    AEAD • CONFIDENCIALIDAD + INTEGRIDAD CRIPTOGRÁFICA
+                                </div>
+                            </div>
+                            <span class="lime-badge" style="font-size: 10px;">NIVEL MAESTRO</span>
+                        </div>
+
+                        <div style="font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary);">01. PARÁMETROS DEL CIFRADOR:</strong>
+                                <p style="margin-top: 2px;">
+                                    Clave simétrica de <strong>256 bits</strong>, vector de inicialización (<strong>Nonce/IV</strong>) de <strong>96 bits</strong> generado mediante <strong>CSPRNG</strong> (<code style="color: var(--accent-primary);">os.urandom(12)</code>) y Auth Tag de <strong>128 bits</strong> (GHASH) para validar autenticidad.
+                                </p>
+                            </div>
+
+                            <div style="background: rgba(239, 68, 68, 0.12); border-left: 3px solid var(--accent-danger, #ef4444); padding: 8px 12px;">
+                                <strong style="color: var(--accent-danger, #ef4444); font-family: var(--font-mono); font-size: 12px;">RIESGO CRÍTICO: REUTILIZACIÓN DE NONCE:</strong>
+                                <div style="font-size: 13.5px; color: var(--text-primary); margin-top: 2px;">
+                                    Repetir un Nonce bajo la misma clave destruye la autenticidad en GCM, permitiendo recuperar la subclave hash y falsificar mensajes. Cada registro exige un Nonce único.
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);">02. AAD (ADDITIONAL AUTHENTICATED DATA):</strong>
+                                <p style="margin-top: 2px;">
+                                    Permite ligar metadatos en claro (e.g. <code style="color: var(--accent-primary);">user_uuid, tenant_id</code>) al tag criptográfico sin cifrarlos. Impide ataques de transplante de ciphertext entre tablas o cuentas de distintos usuarios.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: En peritajes forenses, el uso de modo ECB o CBC sin HMAC tipifica negligencia inexcusable ante la ANPD.
+                    </div>
+                </div>
+
+                <!-- PANEL 2: ENVELOPE ENCRYPTION & KMS/HSM -->
+                <div class="glass-panel purple-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 23px;">Arquitectura Envelope Encryption</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary); margin-top: 2px;">
+                                    SEGREGACIÓN ESTRICTA: DEK (LOCAL) VS. KEK (HSM/KMS)
+                                </div>
+                            </div>
+                            <span class="purple-badge" style="font-size: 10px;">ZERO TRUST</span>
+                        </div>
+
+                        <div style="font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">01. DATA ENCRYPTION KEY (DEK):</strong>
+                                <p style="margin-top: 2px;">
+                                    Clave simétrica efímera de un solo uso generada para cifrar el registro de base de datos. Solo reside en la memoria RAM de la aplicación durante los microsegundos que dura la mutación.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">02. KEY ENCRYPTION KEY (KEK / MASTER KEY):</strong>
+                                <p style="margin-top: 2px;">
+                                    Clave raíz custodiada exclusivamente dentro de un módulo <strong>HSM</strong> físico certificado <strong>FIPS 140-3 Level 3</strong> o Cloud KMS (AWS KMS, GCP Cloud Key Management, HashiCorp Vault).
+                                </p>
+                            </div>
+
+                            <div style="background: rgba(129, 140, 248, 0.12); border-left: 3px solid var(--accent-secondary); padding: 8px 12px;">
+                                <strong style="color: var(--accent-secondary); font-family: var(--font-mono); font-size: 12px;">WORKFLOW ENVELOPE EN DB:</strong>
+                                <div style="font-size: 13.5px; color: var(--text-primary); margin-top: 2px;">
+                                    Se almacena: <code style="color: var(--accent-secondary); font-size: 12px;">[Encrypted_Data + Encrypted_DEK + Nonce + Tag]</code>. Al terminar de cifrar, se ejecuta <em>memory zeroization</em> de la DEK en texto plano.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: La KEK maestra NUNCA se persiste en archivos .env, código fuente, variables de servidor ni dumps de BD.
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARATIVE LOWER LEDGER: CREDENTIAL HASHING & KMS LIFECYCLE -->
+            <div class="glass-panel" style="padding: 16px 24px; background: var(--bg-surface-elevated, var(--bg-surface)); display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">HASHING DE CREDENCIALES: ARGON2ID</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Función <em>memory-hard</em> resistente a ataques por fuerza bruta con GPUs y ASICs ($m=64\text{MB}, t=3, p=4$). Prohibido terminantemente MD5, SHA-1 o SHA-256 simple sin salt.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">ROTACIÓN AUTOMÁTICA DE CLAVES (KMS)</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Rotación anual de la KEK en el HSM. Permite descifrar DEKs antiguas sin reencriptar terabytes de datos en disco (re-wrapping síncrono únicamente de la clave de envoltura).
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">CUMPLIMIENTO DIRECTIVA R.D. 019-2013</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Exigido de manera vinculante para Nivel Maestro (bancos de datos de salud, biometría de iris, huellas digitales y registros de antecedentes o solvencia patrimonial).
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Acronym Glossary Badges -->
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--border-faint); padding-top: 8px; font-family: var(--font-mono); font-size: 12px;">
+                    <span style="color: var(--accent-primary); font-weight: 700;">GLOSARIO CRIPTOGRÁFICO:</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>AEAD:</strong> Authenticated Encryption with Associated Data</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>AAD:</strong> Additional Authenticated Data</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>DEK:</strong> Data Encryption Key (Clave local)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>KEK:</strong> Key Encryption Key (Clave maestra)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>KMS / HSM:</strong> Key Management Service / Hardware Security Module</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>CSPRNG:</strong> Crypto-Secure Pseudo-Random Number Generator</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>FIPS:</strong> Federal Information Processing Standards (NIST)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

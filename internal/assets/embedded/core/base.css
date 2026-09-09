@@ -1,0 +1,200 @@
+/* ===========================================
+   BASE ARCHITECTURE & 16:9 VIEWPORT ENGINE
+   Universal stage coordinates, viewport scaling, resets
+   =========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #e2e8f0;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.deck-viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: var(--bg-canvas);
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+}
+
+/* Atmospheric Lighting Layers & Canva Geometric Decorations */
+.stage-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: var(--bg-canvas);
+    background-image: 
+        /* Subtle network grid */
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        /* Bottom-left crimson chevron from Canva design */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 46'%3E%3Cpolygon points='0,12 180,12 225,46 0,46' fill='%23820024'/%3E%3Cpolygon points='0,30 75,30 95,46 0,46' fill='%230f172a'/%3E%3C/svg%3E"),
+        /* Soft corner red/navy ambient tint */
+        radial-gradient(circle at 92% 8%, rgba(130, 0, 36, 0.04) 0%, transparent 45%),
+        radial-gradient(circle at 8% 92%, rgba(15, 23, 42, 0.04) 0%, transparent 45%),
+        /* Top center inverted triangle accent */
+        radial-gradient(circle at 50% 0%, rgba(130, 0, 36, 0.06) 0%, transparent 35%);
+    background-position: 0 0, 0 0, left bottom, 0 0, 0 0, 0 0;
+    background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 48px 48px, 48px 48px, 260px 42px, 100% 100%, 100% 100%, 100% 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Top center geometric inverted triangle glyph (Canva signature) */
+.stage-backdrop::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 65px;
+    background: 
+        /* Top inverted triangle */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 70'%3E%3Cpolygon points='10,10 110,10 60,65' fill='none' stroke='%23820024' stroke-width='2' opacity='0.7'/%3E%3Cpolygon points='25,10 95,10 60,50' fill='%23820024' fill-opacity='0.12' stroke='%23820024' stroke-width='1.5' opacity='0.8'/%3E%3Ccircle cx='60' cy='6' r='3.5' fill='none' stroke='%23820024' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat center top;
+    background-size: contain;
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+/* Bottom right concentric geometric triangles (Canva signature) */
+.stage-backdrop::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    right: 28px;
+    width: 140px;
+    height: 120px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 120'%3E%3Cpolygon points='70,10 130,110 10,110' fill='none' stroke='%230f172a' stroke-width='2.5' opacity='0.75'/%3E%3Cpolygon points='70,30 115,105 25,105' fill='%23820024' fill-opacity='0.15' stroke='%23820024' stroke-width='2' opacity='0.85'/%3E%3Ccircle cx='70' cy='115' r='4' fill='none' stroke='%230f172a' stroke-width='2'/%3E%3C/svg%3E") no-repeat center bottom;
+    background-size: contain;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+/* Slide Element Rules */
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    background: transparent;
+    z-index: 2;
+}
+
+.slide.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 3;
+}
+
+/* Slide Content Framing */
+.slide-frame {
+    position: absolute;
+    inset: 52px 56px 74px 56px;
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+}
+
+/* Universal Top & Bottom Hairlines */
+.hairlines::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 56px;
+    right: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #820024, #0f172a, transparent);
+    opacity: 0.45;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.hairlines::after {
+    content: '';
+    position: absolute;
+    bottom: 28px;
+    left: 56px;
+    right: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #0f172a, #820024, transparent);
+    opacity: 0.45;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Navigation Indicator & Pagination */
+.deck-pagenum {
+    position: absolute;
+    right: 56px;
+    bottom: 38px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #820024;
+    z-index: 12;
+    pointer-events: none;
+}
+
+/* Print Rules for Handouts / PDF Export */
+@media print {
+    html, body {
+        overflow: visible;
+        background: #f8f9fc !important;
+    }
+    .deck-viewport {
+        position: static;
+        overflow: visible;
+    }
+    .deck-stage {
+        position: static;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+    .slide {
+        position: relative !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        page-break-after: always;
+        width: 1920px;
+        height: 1080px;
+    }
+    .edit-toggle, .edit-hotzone, .master-index-drawer, .index-toggle-btn, .deck-hud, .keyboard-help-modal {
+        display: none !important;
+    }
+}

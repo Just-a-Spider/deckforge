@@ -1,0 +1,670 @@
+/* ==========================================================================
+   DECKFORGE CORE ENGINE: LAYOUT GRIDS & COMPONENT SHELLS
+   Structural Flex/Grid Layouts, Panels, Cards, Topbar, Badges
+   ========================================================================== */
+
+/* Topbar Header Component */
+.slide-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border-color, rgba(255, 255, 255, 0.15));
+    margin-bottom: 24px;
+    flex-shrink: 0;
+}
+
+.slide-topbar .topbar-title {
+    font-family: var(--font-display, sans-serif);
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-primary, #ffffff);
+    letter-spacing: -0.02em;
+}
+
+.slide-topbar .topbar-title span.lime-hl,
+.slide-topbar .topbar-title span.accent-hl {
+    color: var(--accent-primary, #3b82f6);
+    font-style: italic;
+    font-weight: 700;
+}
+
+.slide-topbar .topbar-tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-primary, #3b82f6);
+    text-transform: uppercase;
+    background: var(--bg-surface, #ffffff);
+    border: 1.5px solid var(--border-color, #3b82f6);
+    padding: 6px 14px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Content Area & Master Grids */
+.slide-content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    min-height: 0;
+    max-height: 860px;
+}
+
+.row-fill {
+    flex: 1;
+    min-height: 0;
+}
+
+.row-auto {
+    flex: 0 0 auto;
+}
+
+.grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+    height: 100%;
+}
+
+.grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+    height: 100%;
+}
+
+.grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: stretch;
+    height: 100%;
+}
+
+.grid-split-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 36px;
+    align-items: stretch;
+    height: 100%;
+}
+
+.grid-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+/* Card & Panel Archetypes */
+.glass-panel {
+    background: var(--bg-surface, #ffffff);
+    border: var(--border-width, 1px) var(--border-style, solid) var(--border-faint, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-card, 8px);
+    position: relative;
+    box-shadow: var(--shadow-card, var(--surface-shadow, 0 4px 20px rgba(0, 0, 0, 0.08)));
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(var(--backdrop-blur, 0px));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur, 0px));
+    padding: var(--card-padding, 28px);
+}
+
+/* 1. Left Stripe Accents */
+.glass-panel.lime-edge,
+.glass-panel.accent-edge {
+    border-left: calc(var(--border-width, 1px) + 3px) solid var(--accent-primary, #3b82f6);
+}
+.glass-panel.secondary-edge {
+    border-left: calc(var(--border-width, 1px) + 3px) solid var(--accent-secondary, #818cf8);
+}
+
+/* 2. Full Clean Border */
+.panel-bordered {
+    background: var(--bg-surface, #ffffff);
+    border: var(--border-width, 1.5px) var(--border-style, solid) var(--border-color, var(--accent-primary, #3b82f6));
+    border-radius: var(--radius-card, 8px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.06));
+    padding: var(--card-padding, 28px);
+}
+
+/* 3. Top Accent Card */
+.panel-top-accent {
+    background: var(--bg-surface, #ffffff);
+    border: var(--border-width, 1px) var(--border-style, solid) var(--border-faint, rgba(255, 255, 255, 0.1));
+    border-top: calc(var(--border-width, 1px) + 3px) solid var(--accent-primary, #3b82f6);
+    border-radius: var(--radius-card, 8px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.06));
+    padding: var(--card-padding, 28px);
+}
+
+/* 4. Elevated Surface Card (Minimalist, No Heavy Border) */
+.panel-elevated {
+    background: var(--bg-surface-elevated, #f8f9fc);
+    border: var(--border-width, 1px) var(--border-style, solid) var(--border-faint, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius-card, 10px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-elevated, 0 8px 30px rgba(0, 0, 0, 0.12));
+    padding: var(--card-padding, 28px);
+}
+
+/* 5. Clean Outline / Wireframe Card */
+.panel-outline {
+    background: transparent;
+    border: var(--border-width, 1px) var(--border-style, solid) var(--border-faint, rgba(255, 255, 255, 0.2));
+    border-radius: var(--radius-card, 8px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--card-padding, 28px);
+}
+
+.panel-headline {
+    font-family: var(--font-display, sans-serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary, #ffffff);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.card-tag {
+    display: inline-block;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary, #3b82f6);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+/* Bullet List Styling */
+.bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bullet-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-secondary, #94a3b8);
+}
+
+.bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-primary, #3b82f6);
+}
+
+/* Table Containers */
+.table-container {
+    width: 100%;
+    overflow: hidden;
+    border: 1.5px solid var(--border-color, #e2e8f0);
+    border-radius: 6px;
+    background: var(--bg-surface, #ffffff);
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.table-container th {
+    background: var(--bg-surface-elevated, #f8f9fc);
+    font-family: var(--font-display, sans-serif);
+    font-weight: 700;
+    color: var(--text-primary, #0f172a);
+    padding: 12px 16px;
+    border-bottom: 1.5px solid var(--border-color, #e2e8f0);
+}
+
+.table-container td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-faint, #f1f5f9);
+    color: var(--text-secondary, #334155);
+}
+
+.table-container tr:last-child td {
+    border-bottom: none;
+}
+
+/* Code Blocks */
+.code-block {
+    background: var(--bg-canvas, #090d16);
+    border: 1px solid var(--border-faint, rgba(255, 255, 255, 0.12));
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-family: var(--font-mono, monospace);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-primary, #f8fafc);
+    overflow-x: auto;
+}
+
+/* Badges */
+.badge,
+.lime-badge,
+.badge-accent,
+.badge-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm, 4px);
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--accent-glow, rgba(16, 185, 129, 0.15));
+    color: var(--accent-primary, #10b981);
+    border: var(--border-width, 1px) var(--border-style, solid) var(--accent-primary, #10b981);
+}
+
+.purple-badge,
+.badge-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm, 4px);
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(129, 140, 248, 0.12);
+    color: var(--accent-secondary, #818cf8);
+    border: var(--border-width, 1px) var(--border-style, solid) var(--accent-secondary, #818cf8);
+}
+
+.badge-danger,
+.badge-critical {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm, 4px);
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--accent-danger, #ef4444);
+    border: var(--border-width, 1px) var(--border-style, solid) var(--accent-danger, #ef4444);
+}
+
+/* Edge Accents for Glass Panel */
+.glass-panel.purple-edge,
+.glass-panel.secondary-edge {
+    border-left: 4px solid var(--accent-secondary, #818cf8);
+}
+
+/* Glass Panel Structure & Header */
+.glass-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-faint, rgba(255, 255, 255, 0.1));
+    padding-bottom: 12px;
+}
+
+.panel-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.panel-tag {
+    display: inline-block;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary, #3b82f6);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.micro-kicker {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent-primary, #3b82f6);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.quote-lead {
+    font-family: var(--font-display, sans-serif);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text-primary, #ffffff);
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+/* Step Boxes */
+.glass-step-box {
+    background: var(--bg-surface-elevated, var(--bg-surface));
+    border: 1px solid var(--border-faint, rgba(255, 255, 255, 0.1));
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.step-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent-primary, #3b82f6);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.step-title {
+    font-family: var(--font-display, sans-serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary, #ffffff);
+}
+
+.step-desc {
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--text-secondary, #94a3b8);
+}
+
+/* Study Takeaway Callout */
+.study-takeaway {
+    background: var(--bg-surface-elevated, var(--bg-surface));
+    border-left: 3px solid var(--accent-secondary, #818cf8);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-top: auto;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--text-secondary, #94a3b8);
+}
+
+.study-takeaway strong {
+    color: var(--text-primary, #ffffff);
+}
+
+/* Glass Table */
+.glass-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13.5px;
+}
+
+.glass-table th {
+    background: var(--bg-surface-elevated, var(--bg-surface));
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary, #94a3b8);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-faint, rgba(255, 255, 255, 0.1));
+}
+
+.glass-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-faint, rgba(255, 255, 255, 0.1));
+    color: var(--text-secondary, #94a3b8);
+}
+
+.glass-table tr:last-child td {
+    border-bottom: none;
+}
+
+.td-name {
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+}
+
+.td-mono {
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    color: var(--accent-primary, #3b82f6);
+}
+
+/* Decorative QR & Pixel Chart Components */
+.qr-patch-dark {
+    display: grid;
+    grid-template-columns: repeat(8, 8px);
+    grid-gap: 3px;
+    padding: 8px;
+    background: var(--bg-canvas, #090d16);
+    border: 1px solid var(--border-faint, rgba(255, 255, 255, 0.12));
+    border-radius: 4px;
+}
+
+.qr-cell {
+    width: 8px;
+    height: 8px;
+    background: var(--border-faint, rgba(255, 255, 255, 0.08));
+    border-radius: 1px;
+}
+
+.qr-cell.on {
+    background: var(--accent-primary, #10b981);
+}
+
+.qr-cell.p-on {
+    background: var(--accent-secondary, #818cf8);
+}
+
+.pixel-chart-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 16px;
+    padding: 16px 8px;
+    background: var(--bg-surface-elevated, var(--bg-surface));
+    border: 1px solid var(--border-faint, rgba(255, 255, 255, 0.12));
+    border-radius: 6px;
+}
+
+.pixel-chart-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.pixel-stack {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4px;
+    margin: 8px 0;
+    width: 100%;
+    align-items: center;
+}
+
+.pixel-cell {
+    width: 80%;
+    height: 10px;
+    background: var(--border-faint, rgba(255, 255, 255, 0.12));
+    border-radius: 2px;
+}
+
+.pixel-cell.on {
+    background: var(--accent-primary, #10b981);
+}
+
+.chart-col-val {
+    font-family: var(--font-mono, monospace);
+    font-weight: 700;
+    color: var(--text-primary, #ffffff);
+}
+
+.chart-col-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary, #94a3b8);
+    letter-spacing: 0.05em;
+}
+
+
+/* ==========================================================================
+   SPACING PRIMITIVES & CHAPTER BREAK EXTENSIONS
+   ========================================================================== */
+
+:root {
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --space-6: 64px;
+}
+
+/* Padding utilities */
+.p-1 { padding: var(--space-1) !important; }
+.p-2 { padding: var(--space-2) !important; }
+.p-3 { padding: var(--space-3) !important; }
+.p-4 { padding: var(--space-4) !important; }
+.p-5 { padding: var(--space-5) !important; }
+.p-6 { padding: var(--space-6) !important; }
+
+.px-1 { padding-left: var(--space-1) !important; padding-right: var(--space-1) !important; }
+.px-2 { padding-left: var(--space-2) !important; padding-right: var(--space-2) !important; }
+.px-3 { padding-left: var(--space-3) !important; padding-right: var(--space-3) !important; }
+.px-4 { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
+.px-5 { padding-left: var(--space-5) !important; padding-right: var(--space-5) !important; }
+.px-6 { padding-left: var(--space-6) !important; padding-right: var(--space-6) !important; }
+
+.py-1 { padding-top: var(--space-1) !important; padding-bottom: var(--space-1) !important; }
+.py-2 { padding-top: var(--space-2) !important; padding-bottom: var(--space-2) !important; }
+.py-3 { padding-top: var(--space-3) !important; padding-bottom: var(--space-3) !important; }
+.py-4 { padding-top: var(--space-4) !important; padding-bottom: var(--space-4) !important; }
+.py-5 { padding-top: var(--space-5) !important; padding-bottom: var(--space-5) !important; }
+.py-6 { padding-top: var(--space-6) !important; padding-bottom: var(--space-6) !important; }
+
+/* Gap utilities */
+.gap-1 { gap: var(--space-1) !important; }
+.gap-2 { gap: var(--space-2) !important; }
+.gap-3 { gap: var(--space-3) !important; }
+.gap-4 { gap: var(--space-4) !important; }
+.gap-5 { gap: var(--space-5) !important; }
+.gap-6 { gap: var(--space-6) !important; }
+
+/* Margin utilities */
+.m-auto { margin: auto !important; }
+.mt-1 { margin-top: var(--space-1) !important; }
+.mt-2 { margin-top: var(--space-2) !important; }
+.mt-3 { margin-top: var(--space-3) !important; }
+.mt-4 { margin-top: var(--space-4) !important; }
+.mt-5 { margin-top: var(--space-5) !important; }
+.mt-6 { margin-top: var(--space-6) !important; }
+
+.mb-1 { margin-bottom: var(--space-1) !important; }
+.mb-2 { margin-bottom: var(--space-2) !important; }
+.mb-3 { margin-bottom: var(--space-3) !important; }
+.mb-4 { margin-bottom: var(--space-4) !important; }
+.mb-5 { margin-bottom: var(--space-5) !important; }
+.mb-6 { margin-bottom: var(--space-6) !important; }
+
+/* Chapter & Act Divider Primitives */
+.slide.chapter-break .slide-frame {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.chapter-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-5);
+    background: radial-gradient(circle at center, var(--bg-surface-elevated, var(--bg-surface)) 0%, transparent 75%);
+    border-radius: 16px;
+}
+
+.chapter-kicker {
+    font-family: var(--font-mono, monospace);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent-primary, #10b981);
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+}
+
+.chapter-num {
+    font-family: var(--font-display, sans-serif);
+    font-size: 96px;
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--accent-primary, #10b981);
+    margin-bottom: var(--space-2);
+}
+
+.chapter-title {
+    font-family: var(--font-display, sans-serif);
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-primary, #ffffff);
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-3);
+}
+
+.chapter-divider {
+    width: 140px;
+    height: 3px;
+    background: var(--accent-primary, #10b981);
+    margin: 0 auto var(--space-3) auto;
+    border-radius: 2px;
+}
+
+.chapter-summary {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-secondary, #94a3b8);
+    max-width: 860px;
+    margin: 0 auto;
+}

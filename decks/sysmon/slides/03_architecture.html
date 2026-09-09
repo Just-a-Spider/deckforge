@@ -1,0 +1,88 @@
+<section class="slide active visible" data-slide="3">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Top-Screen Telemetry Engine: <span class="lime-hl">Real-Time Hardware Observability</span></div>
+            <div class="topbar-tag">HARDWARE SENSORS • HWMON SCRAPER • CITRO2D HUD • SPEC-003</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <!-- 3-COLUMN ARCHITECTURE CARDS -->
+            <div class="grid-3col" style="height: 440px; gap: 20px;">
+                <!-- COL 1: SENSOR INGESTION -->
+                <div class="glass-panel lime-edge" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="micro-kicker">LINUX KERNEL SENSOR BUS</div>
+                        <div class="panel-headline" style="font-size: 21px; margin-top: 4px;">/sys/class/hwmon Scraper</div>
+                        <p style="font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px;">
+                            Direct kernel-level hardware telemetry ingestion without reliance on proprietary third-party monitoring daemons:
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                            <li><strong style="color: var(--text-primary);">CPU Sensors:</strong> Core load via <code style="font-family: var(--font-mono); color: var(--accent-primary);">/proc/stat</code>, per-die temperature, frequency scaling.</li>
+                            <li><strong style="color: var(--text-primary);">Multi-GPU Support:</strong> Native AMDGPU sysfs, NVIDIA NVML bindings, and Intel iGPU metrics (load, VRAM, temps).</li>
+                            <li><strong style="color: var(--text-primary);">Super I/O Motherboard Chips:</strong> Auto-detection of NCT6775, IT87, and ASUS EC chips for chassis &amp; CPU cooler fan RPMs.</li>
+                            <li><strong style="color: var(--text-primary);">RAM &amp; Swap:</strong> Real-time physical allocation, buffers, and swap utilization gauges.</li>
+                        </ul>
+                    </div>
+                    <div style="border-top: 1px solid var(--border-faint); padding-top: 10px; font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary);">
+                        INGESTION // KERNEL SYSFS &amp; SYSINFO
+                    </div>
+                </div>
+
+                <!-- COL 2: STREAMING PIPELINE -->
+                <div class="glass-panel lime-edge" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="micro-kicker">ASYNC POLLING ENGINE</div>
+                        <div class="panel-headline" style="font-size: 21px; margin-top: 4px;">Tokio Async Broadcast</div>
+                        <p style="font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px;">
+                            Non-blocking concurrent event loop broadcasting serializable system metrics to connected endpoints:
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                            <li><strong style="color: var(--text-primary);">Configurable Poller:</strong> Default 1500ms cycle with zero background host CPU spikes (<code style="font-family: var(--font-mono); color: var(--accent-primary);">&lt; 0.2% CPU</code>).</li>
+                            <li><strong style="color: var(--text-primary);">Enriched Payloads:</strong> Top 5 process hogs, wttr.in weather forecast, and active MPRIS audio player metadata.</li>
+                            <li><strong style="color: var(--text-primary);">TCP Low Latency:</strong> Transmitted over TCP port 7341 with <code style="font-family: var(--font-mono); color: var(--accent-primary);">TCP_NODELAY</code> disabled Nagle buffering.</li>
+                            <li><strong style="color: var(--text-primary);">Backpressure Safety:</strong> Dynamic drop-tail mechanism prevents backlog buffer bloat over congested Wi-Fi.</li>
+                        </ul>
+                    </div>
+                    <div style="border-top: 1px solid var(--border-faint); padding-top: 10px; font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary);">
+                        PIPELINE // TCP 7341 • NODELAY
+                    </div>
+                </div>
+
+                <!-- COL 3: 3DS GPU RENDERING -->
+                <div class="glass-panel accent-edge" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="micro-kicker" style="color: var(--accent-secondary);">3DS CLIENT RENDERER</div>
+                        <div class="panel-headline" style="font-size: 21px; margin-top: 4px;">Citro2D Hardware Acceleration</div>
+                        <p style="font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px;">
+                            Optimized PICA200 GPU graphics pipeline written in C99 using devkitARM and libctru:
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                            <li><strong style="color: var(--text-primary);">400×240 Resolution:</strong> Pixel-perfect alignment on the upper 16:9 LCD with animated gauges and bar graphs.</li>
+                            <li><strong style="color: var(--text-primary);">20 FPS Throttling:</strong> Locked 50ms frame cadence eliminating thermal buildup and maximizing battery runtime.</li>
+                            <li><strong style="color: var(--text-primary);">Sleep Mode (SELECT):</strong> Halts Wi-Fi socket reads and suspends LCD backlight for instant battery preservation.</li>
+                            <li><strong style="color: var(--text-primary);">Monocraft Typography:</strong> High-legibility pixel font ensuring effortless glancing during intense gaming.</li>
+                        </ul>
+                    </div>
+                    <div style="border-top: 1px solid var(--border-faint); padding-top: 10px; font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary);">
+                        GRAPHICS // PICA200 • CITRO2D / CITRO3D
+                    </div>
+                </div>
+            </div><div class="glass-panel card-tag" style="padding: 16px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <span class="card-tag" style="margin: 0;">TELEMETRY SCHEMA:</span>
+                    <code style="font-family: var(--font-mono); font-size: 12px; color: #a5f3fc; background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 4px;">
+                        {"cpu_usage":"18.4%","cpu_temp":46.2,"cpu_fan":1280,"gpu_temp":52.0,"gpu_fan":950,"free_ram":24.6,"now_playing":"Daft Punk - Voyager"}
+                    </code>
+                </div>
+                <div style="display: flex; gap: 16px; font-family: var(--font-mono); font-size: 12px;">
+                    <div><span style="color: var(--text-muted);">HOST RAM:</span> <strong style="color: var(--accent-primary);">&lt; 15 MB</strong></div>
+                    <div><span style="color: var(--text-muted);">HOST CPU:</span> <strong style="color: var(--accent-primary);">&lt; 0.2%</strong></div>
+                    <div><span style="color: var(--text-muted);">3DS RUNTIME:</span> <strong style="color: var(--accent-secondary);">~4.5 HOURS</strong></div>
+                </div>
+            </div>
+
+            <!-- LOWER CODE & METRICS LEDGER -->
+
+        </div>
+    </div>
+</section>

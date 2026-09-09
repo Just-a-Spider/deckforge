@@ -1,0 +1,121 @@
+<section class="slide" data-slide="5">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Kernel Virtual Gamepad: <span class="lime-hl">Low-Latency 3PAD Input Protocol</span></div>
+            <div class="topbar-tag">LINUX /DEV/UINPUT • 3PAD BINARY UDP • SUB-5MS RESPONSIVENESS • SPEC-005</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <div class="grid-split-hero" style="height: 600px;">
+                <!-- LEFT PANEL: 3PAD BINARY PROTOCOL -->
+                <div class="glass-panel lime-edge" style="padding: 26px 30px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 16px; padding-bottom: 12px;">
+                            <div>
+                                <div class="micro-kicker">BINARY PROTOCOL SPECIFICATION</div>
+                                <div class="panel-headline" style="font-size: 24px; margin-bottom: 2px;">28-Byte Fixed Datagram Framing</div>
+                            </div>
+                            <span class="lime-badge">UDP PORT 7339</span>
+                        </div>
+
+                        <p style="font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 14px;">
+                            Gamepad controls cannot tolerate TCP head-of-line blocking or Nagle delays. SysMon transmits raw, packed 28-byte UDP datagrams with monotonic sequencing:
+                        </p>
+
+                        <!-- PACKET MEMORY LAYOUT TABLE -->
+                        <div style="display: flex; flex-direction: column; gap: 6px; font-family: var(--font-mono); font-size: 12px;">
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.06); padding: 6px 12px; border-radius: 4px; font-weight: 700; color: var(--accent-primary);">
+                                <span>OFFSET</span><span>FIELD</span><span>DESCRIPTION</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">00..04</span><span style="color: var(--accent-primary);">magic[4]</span><span style="color: var(--text-secondary);">ASCII "3PAD" (0x33, 0x50, 0x41, 0x44)</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">04..08</span><span style="color: var(--accent-secondary);">seq</span><span style="color: var(--text-secondary);">u32 Monotonic sequence number (anti-replay)</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">08..12</span><span style="color: var(--text-primary);">pin</span><span style="color: var(--text-secondary);">u32 Numeric authorization key validation</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">12..16</span><span style="color: var(--text-primary);">buttons</span><span style="color: var(--text-secondary);">u32 Bitmask: ABXY, D-Pad, L/R, ZL/ZR, Select/Start</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">16..20</span><span style="color: var(--accent-primary);">circle_x/y</span><span style="color: var(--text-secondary);">s16 Circle Pad analog axes (-156 to +156)</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">20..24</span><span style="color: var(--accent-primary);">right_x/y</span><span style="color: var(--text-secondary);">s16 C-Stick / Touch Screen virtual stick</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 80px 100px 1fr; background: rgba(255,255,255,0.02); padding: 5px 12px; border-radius: 4px;">
+                                <span style="color: var(--text-muted);">24..28</span><span style="color: var(--text-muted);">flags</span><span style="color: var(--text-secondary);">u32 Operational flags and packet modifiers</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 13px; padding: 10px 16px; border-left-color: var(--accent-primary);">
+                        <strong>Emergency Grab Release:</strong> Holding the top-right touch digitizer corner for 1.5 seconds instantly disengages controller lock and releases input capture.
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: UINPUT KERNEL BRIDGE -->
+                <div class="glass-panel accent-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="micro-kicker" style="color: var(--accent-secondary);">KERNEL INTEGRATION</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 0;">Rootless /dev/uinput Driver</div>
+                            </div>
+                            <span class="purple-badge">LINUX EVDEV</span>
+                        </div>
+
+                        <p style="font-size: 14px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 14px;">
+                            The Rust daemon uses the <code style="font-family: var(--font-mono); color: var(--accent-secondary);">evdev</code> crate to register a genuine hardware gamepad in the Linux kernel without requiring root privileges:
+                        </p>
+
+                        <div class="code-block" style="font-size: 11.5px; padding: 12px 14px; border-left: 3px solid var(--accent-secondary); margin-bottom: 14px;">
+                            # 99-sysmon-uinput.rules (udev)<br>
+                            KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"<br>
+                            # User added to group: sudo usermod -aG input $USER
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; line-height: 1.5;">
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                <strong style="color: var(--text-primary);">Universal Gamepad Emulation:</strong>
+                                <span style="color: var(--text-secondary);"> Creates standard virtual joydev (<code style="font-family: var(--font-mono); color: var(--accent-secondary);">/dev/input/jsX</code>) recognized out-of-the-box by Steam, RetroArch, PCSX2, and SDL2 titles.</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                <strong style="color: var(--text-primary);">Zero Polling Overhead:</strong>
+                                <span style="color: var(--text-secondary);"> Events are emitted directly via kernel ioctl calls only on actual state delta changes, maintaining zero idle CPU wakeups.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- METRICS ACCREDITATION -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px; text-align: center;">
+                            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-primary);">&lt; 4 ms</div>
+                            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">INPUT DISPATCH LATENCY</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px; text-align: center;">
+                            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-secondary);">60 Hz</div>
+                            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">SAMPLING FREQUENCY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEDGER SPEC FOOTER -->
+            <div class="glass-panel" style="padding: 12px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 24px; font-family: var(--font-mono); font-size: 12px;">
+                    <div><span style="color: var(--text-muted);">TRANSPORT:</span> <strong style="color: var(--accent-primary);">UDP UNRELIABLE (ZERO BLOCKING)</strong></div>
+                    <div><span style="color: var(--text-muted);">PAYLOAD:</span> <strong style="color: var(--text-primary);">28 BYTES FIXED</strong></div>
+                    <div><span style="color: var(--text-muted);">ANALOG RESOLUTION:</span> <strong style="color: var(--text-primary);">±156 RAW STICK UNITS</strong></div>
+                    <div><span style="color: var(--text-muted);">PRIVILEGES:</span> <strong style="color: var(--accent-secondary);">ROOTLESS VIA UDEV</strong></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="lime-badge">EVDEV UINPUT</span>
+                    <span class="purple-badge">STEAM READY</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

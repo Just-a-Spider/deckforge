@@ -1,0 +1,138 @@
+<section class="slide" data-slide="11">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Supresión Técnica Irreversible: <span class="lime-hl">Crypto-Shredding</span></div>
+            <div class="topbar-tag">DERECHO AL OLVIDO • WORM STORAGE • NIST SP 800-88 • RESURRECTION BUG</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <!-- TOP HERO SPLIT: CRYPTO-SHREDDING STEPS & NIST EQUIVALENCE -->
+            <div class="grid-split-hero" style="height: 550px;">
+                <!-- LEFT: TECHNICAL WORKFLOW & MATHEMATICAL FOUNDATION -->
+                <div class="glass-panel lime-edge" style="padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 22px;">Mecánica del Crypto-Shredding</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary); margin-top: 2px;">
+                                    DESTRUCCIÓN CRIPTOGRÁFICA ATÓMICA ($2^{256}$ BARRERA COMPUTACIONAL)
+                                </div>
+                            </div>
+                            <span class="lime-badge" style="font-size: 10px;">INGENIERÍA CLOUD</span>
+                        </div>
+
+                        <div style="font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 11px;">
+                            <div style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border-left: 3px solid var(--accent-primary); padding: 8px 12px;">
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12px;">EL PROBLEMA DE LA "RESURRECCIÓN" EN BACKUPS:</strong>
+                                <div style="font-size: 13.5px; color: var(--text-primary); margin-top: 2px;">
+                                    Un <code style="color: var(--accent-primary);">DELETE SQL</code> convencional fracasa: al restaurar snapshots de disaster recovery (<strong>DRP</strong>), los datos borrados "resucitan", violando la Ley 29733.
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);">PASO 1 • SEGREGACIÓN DE CLAVE SIMÉTRICA ($K_{usr}$):</strong>
+                                <p style="margin-top: 2px;">
+                                    Cada registro de PII se cifra con una clave única: <code style="color: var(--accent-primary); font-size: 12px;">C = AES-256-GCM(Data, K_usr, Nonce)</code>. Las réplicas y copias en cinta solo persisten ciphertext ininteligible.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);">PASO 2 • PURGA DEFINITIVA DE $K_{usr}$ EN KMS:</strong>
+                                <p style="margin-top: 2px;">
+                                    Ante la Cancelación ARCO, se elimina definitivamente la clave <code style="color: var(--accent-primary); font-size: 12px;">K_usr</code> del gestor (<code style="color: var(--accent-primary); font-size: 12px;">kms:DeleteKey</code>). Sin la clave, el ciphertext jamás podrá ser descifrado.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);">GARANTÍA MATEMÁTICA:</strong>
+                                <p style="margin-top: 2px;">
+                                    Vulnerar AES-256 por fuerza bruta exige $2^{256}$ operaciones (supera el número de átomos en el universo observable). Los datos quedan convertidos en ruido estocástico irreversible.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: Crypto-Shredding destruye la llave en el KMS, no los bloques físicos de almacenamiento inmutable.
+                    </div>
+                </div>
+
+                <!-- RIGHT: LEGAL & STANDARDS RECOGNITION (NIST / EDPB) -->
+                <div class="glass-panel purple-edge" style="padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 21px;">Equivalencia Jurídica Internacional</div>
+                                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); margin-top: 2px;">NIST SP 800-88 REV. 1 & DOCTRINA EDPB / ANPD</div>
+                            </div>
+                            <span class="purple-badge" style="font-size: 10px;">VALIDACIÓN LEGAL</span>
+                        </div>
+
+                        <div style="font-size: 14px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">01. CRYPTOGRAPHIC ERASE (CE):</strong>
+                                <p style="margin-top: 2px;">
+                                    El estándar <strong>NIST SP 800-88 Rev. 1</strong> (<em>Guidelines for Media Sanitization</em>) reconoce que la destrucción irrecuperable de la clave criptográfica equivale a la destrucción física del soporte.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">02. CONCILIACIÓN CON ALMACENAMIENTO WORM:</strong>
+                                <p style="margin-top: 2px;">
+                                    Permite cumplir con el Derecho de Cancelación en nubes inmutables (<strong>Amazon S3 Object Lock</strong> en Compliance Mode) sin violar normativas financieras que prohíben alterar los archivos (SEC Rule 17a-4 / SBS).
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">03. CRITERIO DE ANONIMIZACIÓN (EDPB / ANPD):</strong>
+                                <p style="margin-top: 2px;">
+                                    Al no existir medios técnicos viables para la reidentificación, el registro cifrado pierde la condición jurídica de <strong>PII</strong>, convirtiéndose en datos anónimos fuera del alcance de la Ley 29733.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: Sin clave de descifrado, el registro no califica como dato personal por imposibilidad pericial de reidentificación.
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOWER COMPARATIVE LEDGER: OPERATIONAL ADVANTAGES & GLOSSARY -->
+            <div class="glass-panel" style="padding: 16px 24px; background: var(--bg-surface-elevated, var(--bg-surface)); display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">INMUNIDAD ANTE DISASTER RECOVERY</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Si la empresa restaura un backup general de hace 6 meses tras un ransomware, el usuario eliminado permanece 100% indescifrable al no existir ya su clave en el HSM.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">EFICIENCIA DE CERO RE-ESCRITURA</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Elimina la necesidad de ejecutar reescrituras masivas (<code style="color: var(--accent-primary);">VACUUM FULL</code>) en petabytes de Data Lakes o almacenes de logs de solo adición.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">AUDITORÍA PERICIAL INMUTABLE</span><br>
+                        <span style="color: var(--text-secondary);">
+                            El log de borrado emitido por el KMS (CloudTrail / HSM Audit) constituye plena prueba pericial del cumplimiento del deber de cancelación frente a la ANPD.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Acronym Glossary Badges -->
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--border-faint); padding-top: 8px; font-family: var(--font-mono); font-size: 12px;">
+                    <span style="color: var(--accent-primary); font-weight: 700;">GLOSARIO CRYPTO:</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>WORM:</strong> Write Once, Read Many (Almacenamiento Inmutable)</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>KMS:</strong> Key Management Service</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>HSM:</strong> Hardware Security Module</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>NIST:</strong> National Institute of Standards and Technology</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>EDPB:</strong> European Data Protection Board</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>PII:</strong> Personally Identifiable Information</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>DRP:</strong> Disaster Recovery Plan</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

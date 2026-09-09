@@ -1,0 +1,5 @@
+{
+  "title": "SysMon: Nintendo 3DS PC Telemetry \u0026 Controller Station",
+  "subtitle": "High-Performance Rust Daemon, Low-Latency uinput Gamepad \u0026 Citro2D Dual-Screen HUD",
+  "theme": "paper-ink"
+}

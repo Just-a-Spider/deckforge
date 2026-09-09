@@ -1,0 +1,130 @@
+<section class="slide" data-slide="4">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Intelligent Tokens & WCAG 2.1 Engine: <span class="lime-hl">Automated Contrast Math</span></div>
+            <div class="topbar-tag">WCAG 2.1 ACCESSIBILITY • LUMINANCE MATH • ADR-0005</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <!-- 2-COLUMN MATHEMATICS & ENGINE PANELS -->
+            <div class="grid-2col" style="height: 600px;">
+                <!-- LEFT: WCAG 2.1 CONTRAST MATHEMATICS -->
+                <div class="glass-panel lime-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 12px;">
+                            <div>
+                                <div class="micro-kicker">CONTRAST MATHEMATICS</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 2px;">Relative Luminance Formula (WCAG 2.1)</div>
+                            </div>
+                            <span class="lime-badge">ISO/IEC 40500</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.5;">
+                            <p style="color: var(--text-secondary);">
+                                Relative luminance $L$ measures perceived brightness for sRGB channels normalized to $[0, 1]$ and converted to linear space:
+                            </p>
+
+                            <div class="code-block" style="font-size: 12px; padding: 10px 14px; border-left: 3px solid var(--accent-primary);">
+                                C_linear = (C_srgb &le; 0.04045) ? C_srgb / 12.92 : ((C_srgb + 0.055) / 1.055)^2.4<br>
+                                L = 0.2126 * R_lin + 0.7152 * G_lin + 0.0722 * B_lin<br>
+                                Contrast Ratio = (L_lighter + 0.05) / (L_darker + 0.05)
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 2px;">
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 12px; border-radius: 4px;">
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700;">WCAG AA NORMAL TEXT</div>
+                                    <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-top: 2px;">&ge; 4.50 : 1 RATIO</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 12px; border-radius: 4px;">
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); font-weight: 700;">WCAG AAA ENHANCED</div>
+                                    <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-top: 2px;">&ge; 7.00 : 1 RATIO</div>
+                                </div>
+                            </div>
+
+                            <!-- Live audit badge ledger -->
+                            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid var(--accent-primary); border-radius: 4px; padding: 10px 14px; margin-top: 4px;">
+                                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700; margin-bottom: 6px;">
+                                    CURRENT DECK AUDIT: CYBER-DARK THEME
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-secondary);">
+                                    <div>textPrimary / bgCanvas: <strong style="color: var(--accent-primary);">18.57:1 [AAA]</strong></div>
+                                    <div>textPrimary / bgSurface: <strong style="color: var(--accent-primary);">17.06:1 [AAA]</strong></div>
+                                    <div>accentPrimary / bgCanvas: <strong style="color: var(--accent-primary);">7.66:1 [AAA]</strong></div>
+                                    <div>textSecondary / bgSurface: <strong style="color: var(--accent-secondary);">6.96:1 [AA]</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12.5px; padding: 10px 14px; border-left-color: var(--accent-primary);">
+                        <strong>Continuous Compliance:</strong> Mathematical proof of readability baked directly into the presentation compiler.
+                    </div>
+                </div>
+
+                <!-- RIGHT: BINARY SEARCH RECOMMENDED ACTIONS -->
+                <div class="glass-panel accent-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 12px;">
+                            <div>
+                                <div class="micro-kicker" style="color: var(--accent-secondary);">AUTO-REMEDIATION ALGORITHM</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 2px;">Binary Search Lightness Tuning</div>
+                            </div>
+                            <span class="purple-badge">HSL OPTIMIZER</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.5;">
+                            <p style="color: var(--text-secondary);">
+                                When any token pair fails the 4.5:1 threshold, DeckForge executes an automated binary search over HSL color space:
+                            </p>
+
+                            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13.5px;">
+                                <div style="display: flex; gap: 8px; align-items: flex-start;">
+                                    <span style="font-family: var(--font-mono); color: var(--accent-secondary); font-weight: 700;">1.</span>
+                                    <span style="color: var(--text-secondary);"><strong style="color: var(--text-primary);">Polarity Detection:</strong> Detects whether canvas is dark ($L &lt; 0.5$) or light ($L \ge 0.5$).</span>
+                                </div>
+                                <div style="display: flex; gap: 8px; align-items: flex-start;">
+                                    <span style="font-family: var(--font-mono); color: var(--accent-secondary); font-weight: 700;">2.</span>
+                                    <span style="color: var(--text-secondary);"><strong style="color: var(--text-primary);">Lightness Bisection:</strong> Binary searches $L \in [0, 1]$ with $\epsilon = 0.01$ until ratio reaches safety threshold ($4.55:1$).</span>
+                                </div>
+                                <div style="display: flex; gap: 8px; align-items: flex-start;">
+                                    <span style="font-family: var(--font-mono); color: var(--accent-secondary); font-weight: 700;">3.</span>
+                                    <span style="color: var(--text-secondary);"><strong style="color: var(--text-primary);">Preserve Hue & Saturation:</strong> Brand identity ($H, S$) remains intact; only lightness adjusts.</span>
+                                </div>
+                            </div>
+
+                            <div class="code-block" style="font-size: 11.5px; padding: 10px 14px; border-left: 3px solid var(--accent-secondary); color: #c4b5fd;">
+                                {"target_token": "textSecondary", "current_hex": "#64748b",<br>
+                                 "suggested_hex": "#94a3b8", "current_ratio": 3.82, "new_ratio": 5.12}
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">1-CLICK REMEDIATION WORKFLOWS:</strong>
+                                <div style="font-size: 13px; color: var(--text-secondary);">
+                                    • <strong>CLI:</strong> <code style="font-family: var(--font-mono); color: var(--text-primary);">./bin/deckforge agent tokens-fix &lt;deck&gt; --apply</code><br>
+                                    • <strong>Studio:</strong> Click <em>"Apply Recommended Action"</em> in the visual token inspector.<br>
+                                    • <strong>MCP:</strong> Autonomous agents invoke <code style="font-family: var(--font-mono); color: var(--text-primary);">deckforge_apply_token_fix</code> via stdio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12.5px; padding: 10px 14px; border-left-color: var(--accent-secondary);">
+                        <strong>Zero Color Drift:</strong> Machine-guided accessibility prevents human error without ruining aesthetic intention.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOKEN LEDGER -->
+            <div class="glass-panel" style="padding: 12px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 20px; font-family: var(--font-mono); font-size: 11.5px;">
+                    <div><span style="color: var(--text-muted);">SEMANTIC TOKENS:</span> <span style="color: var(--accent-primary);">--bg-canvas</span>, <span style="color: var(--accent-primary);">--bg-surface</span>, <span style="color: var(--accent-primary);">--text-primary</span>, <span style="color: var(--accent-secondary);">--accent-primary</span></div>
+                    <div><span style="color: var(--text-muted);">STORAGE:</span> <strong style="color: var(--text-primary);">themes/&lt;name&gt;/tokens.json</strong></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="lime-badge">AUTOMATED AUDITING</span>
+                    <span class="purple-badge">1-CLICK FIX</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

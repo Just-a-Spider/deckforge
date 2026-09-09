@@ -1,0 +1,126 @@
+<section class="slide" data-slide="2">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Executive Overview: <span class="lime-hl">Dual-Screen Blueprint &amp; System Topology</span></div>
+            <div class="topbar-tag">SYSTEM TOPOLOGY • HARDWARE INTEGRATION • DECK-002</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <div class="grid-split-hero" style="height: 600px;">
+                <!-- LEFT PANEL: SYSTEM BLUEPRINT -->
+                <div class="glass-panel lime-edge" style="padding: 26px 30px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 16px; padding-bottom: 12px;">
+                            <div>
+                                <div class="micro-kicker">TIERED SUBSYSTEM TOPOLOGY</div>
+                                <div class="panel-headline" style="font-size: 24px; margin-bottom: 2px;">Tri-Component Architecture</div>
+                            </div>
+                            <span class="lime-badge">RUST + C99 + WEB</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.55;">
+                            <div>
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12.5px;">1. HOST DAEMON (sysmon-server):</strong>
+                                <p style="color: var(--text-secondary); margin-top: 3px;">
+                                    Headless Rust background daemon residing in the Linux system tray. Continuously polls hardware sensors (<code style="font-family: var(--font-mono); color: var(--accent-primary);">/sys/class/hwmon</code>), mediates MPRIS D-Bus player controls, and drives kernel <code style="font-family: var(--font-mono); color: var(--accent-primary);">/dev/uinput</code>.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12.5px;">2. HANDHELD CLIENT (sysmon-3ds):</strong>
+                                <p style="color: var(--text-secondary); margin-top: 3px;">
+                                    Native Nintendo 3DS homebrew application authored in C99 using devkitARM and libctru. Renders 20 FPS telemetry via PICA200 GPU (<code style="font-family: var(--font-mono); color: var(--accent-primary);">citro2d</code>) and captures Circle Pad / touch inputs.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12.5px;">3. EMBEDDED DASHBOARD (sysmon-web):</strong>
+                                <p style="color: var(--text-secondary); margin-top: 3px;">
+                                    Lightweight HTTP micro-server embedded on port 7342. Provides a secured localhost config console for PIN and macro assignments, alongside a responsive mobile telemetry HUD.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 13px; padding: 10px 16px; border-left-color: var(--accent-primary);">
+                        <strong>Zero Cloud Footprint:</strong> 100% self-hosted peer-to-peer Wi-Fi communication with zero external telemetric dependencies or cloud telemetry leakage.
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: AGENDA ROADMAP -->
+                <div class="glass-panel accent-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="micro-kicker" style="color: var(--accent-secondary);">PRESENTATION AGENDA</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 0;">Operational Structure</div>
+                            </div>
+                            <span class="purple-badge">5 CORE SECTIONS</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 11px;">
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 11px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); font-weight: 700;">SECTION 01</div>
+                                    <div style="font-size: 14px; color: var(--text-primary); font-weight: 600; margin-top: 2px;">Top-Screen Telemetry HUD</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Hardware sensors, CPU/GPU stats, hwmon polling, and Citro2D acceleration.</div>
+                                </div>
+                                <span class="card-tag" style="margin: 0;">HUD</span>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 11px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); font-weight: 700;">SECTION 02</div>
+                                    <div style="font-size: 14px; color: var(--text-primary); font-weight: 600; margin-top: 2px;">Bottom-Screen Touch Ecosystem</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">8 operational tabs: POMO, LEVEL, KILL, MACRO, MEDIA, CTRL, SET, and CAM.</div>
+                                </div>
+                                <span class="card-tag" style="margin: 0;">TOUCH</span>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 11px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); font-weight: 700;">SECTION 03</div>
+                                    <div style="font-size: 14px; color: var(--text-primary); font-weight: 600; margin-top: 2px;">Kernel Virtual Gamepad &amp; 3PAD UDP</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">28-byte datagram spec, Linux /dev/uinput bridge, sub-5ms low latency.</div>
+                                </div>
+                                <span class="card-tag" style="margin: 0;">INPUT</span>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 11px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); font-weight: 700;">SECTION 04</div>
+                                    <div style="font-size: 14px; color: var(--text-primary); font-weight: 600; margin-top: 2px;">Network, Ports &amp; Security Controls</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Multi-port map (7341, 7342, 7339), PIN auth handshake, and firewall rules.</div>
+                                </div>
+                                <span class="card-tag" style="margin: 0;">NETWORK</span>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 11px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); font-weight: 700;">SECTION 05</div>
+                                    <div style="font-size: 14px; color: var(--text-primary); font-weight: 600; margin-top: 2px;">Packaging, Toolchains &amp; Deployment</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Rust RPM/Arch build, devkitARM C toolchain, and Universal-DB distribution.</div>
+                                </div>
+                                <span class="card-tag" style="margin: 0;">DEPLOY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEDGER SPEC FOOTER -->
+            <div class="glass-panel" style="padding: 12px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 24px; font-family: var(--font-mono); font-size: 12px;">
+                    <div><span style="color: var(--text-muted);">HOST:</span> <strong style="color: var(--accent-primary);">LINUX (KERNEL 5.x / 6.x)</strong></div>
+                    <div><span style="color: var(--text-muted);">CLIENT:</span> <strong style="color: var(--text-primary);">NINTENDO 3DS (O3DS / N3DS / 2DS)</strong></div>
+                    <div><span style="color: var(--text-muted);">LINK:</span> <strong style="color: var(--text-primary);">IEEE 802.11 B/G WI-FI</strong></div>
+                    <div><span style="color: var(--text-muted);">SECURITY:</span> <strong style="color: var(--accent-primary);">NUMERIC PIN HANDSHAKE</strong></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="lime-badge">PURE LOCALHOST</span>
+                    <span class="purple-badge">ZERO OVERHEAD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

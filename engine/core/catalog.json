@@ -1,0 +1,96 @@
+[
+  {
+    "selector": "df-metric-card",
+    "name": "Metric Impact Card",
+    "category": "metrics",
+    "description": "High-contrast statistic card with value, label, and delta tag",
+    "inputs": [
+      { "name": "value", "type": "string", "default": "+99.9%", "description": "Primary metric value" },
+      { "name": "label", "type": "string", "default": "Operational Uptime", "description": "Metric description" },
+      { "name": "delta", "type": "string", "default": "SLO TARGET", "description": "Badge kicker" },
+      { "name": "accentEdge", "type": "boolean", "default": true, "description": "Show primary accent left border" }
+    ],
+    "slots": ["notes"],
+    "classes": ["glass-panel", "lime-edge"],
+    "templateSnippet": "<div class=\"glass-panel{{if .accentEdge}} lime-edge{{end}}\" style=\"padding: 24px;\">\n    <div class=\"card-tag\">{{.delta}}</div>\n    <div style=\"font-family: var(--font-display); font-size: 52px; font-weight: 800; line-height: 1; margin-bottom: 8px; color: var(--accent-primary);\">{{.value}}</div>\n    <div class=\"panel-headline\" style=\"margin-bottom: 4px;\">{{.label}}</div>\n    {{if .slot_notes}}<div style=\"font-size: 13px; color: var(--text-secondary); margin-top: 8px;\">{{.slot_notes}}</div>{{end}}\n</div>"
+  },
+  {
+    "selector": "df-comparison-column",
+    "name": "Comparison Column Panel",
+    "category": "cards",
+    "description": "Structured protocol comparison panel with header and bullet items",
+    "inputs": [
+      { "name": "title", "type": "string", "default": "Architecture A", "description": "Column header" },
+      { "name": "badge", "type": "string", "default": "RECOMMENDED", "description": "Top status badge" }
+    ],
+    "slots": ["items"],
+    "classes": ["glass-panel"],
+    "templateSnippet": "<div class=\"glass-panel\" style=\"padding: 24px;\">\n    <div class=\"card-tag\">{{.badge}}</div>\n    <div class=\"panel-headline\">{{.title}}</div>\n    <ul class=\"bullet-list\" style=\"margin-top: 16px;\">\n        {{if .slot_items}}{{.slot_items}}{{else}}<li>Deterministic 16:9 stage geometry</li><li>Zero-runtime HTML output</li>{{end}}\n    </ul>\n</div>"
+  },
+  {
+    "selector": "df-architecture-node",
+    "name": "Architecture Flow Node",
+    "category": "cards",
+    "description": "Microservice / DevSecOps protocol node with kicker and description",
+    "inputs": [
+      { "name": "stepNumber", "type": "string", "default": "01", "description": "Step sequence identifier" },
+      { "name": "title", "type": "string", "default": "Ingress Gateway", "description": "Node title" },
+      { "name": "desc", "type": "string", "default": "Mutual TLS 1.3 verification and token authentication", "description": "Node description" }
+    ],
+    "classes": ["glass-panel"],
+    "templateSnippet": "<div class=\"glass-panel\" style=\"padding: 20px; border-left: 3px solid var(--accent-primary);\">\n    <div style=\"font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 6px;\">NODE // {{.stepNumber}}</div>\n    <div style=\"font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;\">{{.title}}</div>\n    <div style=\"font-size: 14px; line-height: 1.45; color: var(--text-secondary);\">{{.desc}}</div>\n</div>"
+  },
+  {
+    "selector": "df-code-spec-box",
+    "name": "Code Specification Box",
+    "category": "code",
+    "description": "Syntax snippet container with file path header and language tag",
+    "inputs": [
+      { "name": "filename", "type": "string", "default": "auth_service.go", "description": "Code file path" },
+      { "name": "lang", "type": "string", "default": "GO 1.23", "description": "Language pill" },
+      { "name": "code", "type": "string", "default": "func VerifyToken(ctx context.Context, token string) error {\n    return verifier.Check(token)\n}", "description": "Source code" }
+    ],
+    "classes": ["glass-panel"],
+    "templateSnippet": "<div class=\"glass-panel\" style=\"padding: 0; overflow: hidden; background: #0b0f19;\">\n    <div style=\"display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: rgba(255,255,255,0.05); border-bottom: 1px solid var(--border-color);\">\n        <span style=\"font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);\">{{.filename}}</span>\n        <span class=\"card-tag\" style=\"margin: 0;\">{{.lang}}</span>\n    </div>\n    <pre style=\"margin: 0; padding: 18px; font-family: var(--font-mono); font-size: 13px; line-height: 1.5; color: #a5f3fc; overflow-x: auto;\"><code>{{.code}}</code></pre>\n</div>"
+  },
+  {
+    "selector": "df-executive-quote",
+    "name": "Executive Callout Quote",
+    "category": "typography",
+    "description": "Bordered editorial quote with prominent text and attribution",
+    "inputs": [
+      { "name": "quote", "type": "string", "default": "Simplicity is prerequisite for reliability.", "description": "Quote body" },
+      { "name": "author", "type": "string", "default": "Edsger W. Dijkstra", "description": "Author / Source" },
+      { "name": "role", "type": "string", "default": "Turing Award Laureate", "description": "Author title" }
+    ],
+    "classes": ["glass-panel", "lime-edge"],
+    "templateSnippet": "<div class=\"glass-panel lime-edge\" style=\"padding: 28px 32px;\">\n    <div style=\"font-family: var(--font-display); font-size: 26px; font-style: italic; font-weight: 600; line-height: 1.35; color: var(--text-primary); margin-bottom: 16px;\">\n        \"{{.quote}}\"\n    </div>\n    <div style=\"font-family: var(--font-mono); font-size: 12px;\">\n        <span style=\"color: var(--accent-primary); font-weight: 700;\">{{.author}}</span>\n        <span style=\"color: var(--text-secondary); margin-left: 8px;\">// {{.role}}</span>\n    </div>\n</div>"
+  },
+  {
+    "selector": "df-timeline-step",
+    "name": "Horizontal Timeline Step",
+    "category": "layout",
+    "description": "Sequential phase box with step kicker and milestone objectives",
+    "inputs": [
+      { "name": "phase", "type": "string", "default": "PHASE 01", "description": "Phase tag" },
+      { "name": "title", "type": "string", "default": "Discovery & Blueprint", "description": "Milestone title" },
+      { "name": "eta", "type": "string", "default": "Q3 2026", "description": "Timeline indicator" }
+    ],
+    "slots": ["details"],
+    "classes": ["glass-panel"],
+    "templateSnippet": "<div class=\"glass-panel\" style=\"padding: 20px;\">\n    <div style=\"display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;\">\n        <span class=\"card-tag\" style=\"margin: 0;\">{{.phase}}</span>\n        <span style=\"font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);\">{{.eta}}</span>\n    </div>\n    <div class=\"panel-headline\" style=\"font-size: 18px; margin-bottom: 8px;\">{{.title}}</div>\n    <div style=\"font-size: 13px; color: var(--text-secondary); line-height: 1.45;\">\n        {{if .slot_details}}{{.slot_details}}{{else}}Establish architectural requirements and contracts.{{end}}\n    </div>\n</div>"
+  },
+  {
+    "selector": "df-feature-pill-grid",
+    "name": "Feature Badge Pills Matrix",
+    "category": "layout",
+    "description": "Compact cluster of capability badges with icons/indicators",
+    "inputs": [
+      { "name": "tag1", "type": "string", "default": "DETERMINISTIC 1080P" },
+      { "name": "tag2", "type": "string", "default": "ZERO DEPENDENCIES" },
+      { "name": "tag3", "type": "string", "default": "WCAG AAA AUDIT" },
+      { "name": "tag4", "type": "string", "default": "MCP AGENT READY" }
+    ],
+    "templateSnippet": "<div style=\"display: flex; flex-wrap: wrap; gap: 10px;\">\n    <span class=\"lime-badge\">{{.tag1}}</span>\n    <span class=\"purple-badge\">{{.tag2}}</span>\n    <span class=\"lime-badge\">{{.tag3}}</span>\n    <span class=\"purple-badge\">{{.tag4}}</span>\n</div>"
+  }
+]

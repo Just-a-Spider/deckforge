@@ -1,0 +1,87 @@
+<section class="slide active" data-slide="1">
+    <div class="slide-frame" style="justify-content: space-between; padding: 36px 0 20px 0;">
+        <div style="text-align: center; max-width: 1420px; margin: 0 auto;">
+            <div style="display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                <span class="lime-badge" style="font-size: 12px; padding: 6px 16px;">SYSTEM TELEMETRY &amp; HARDWARE HUD</span>
+                <span class="purple-badge" style="font-size: 12px; padding: 6px 16px;">NINTENDO 3DS HOMEBREW • RUST 2024</span>
+                <span class="lime-badge" style="font-size: 12px; padding: 6px 16px;">UNIVERSAL-DB CERTIFIED</span>
+            </div>
+            
+            <h1 style="font-family: var(--font-display); font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.035em;">
+                SysMon: Nintendo 3DS <span class="lime-hl">Hardware Telemetry</span> &amp; Wireless Controller
+            </h1>
+            
+            <p style="font-size: 22px; line-height: 1.5; color: var(--text-secondary); max-width: 1120px; margin: 0 auto 34px auto;">
+                Transforming legacy handheld console hardware into an ultra-low-latency Linux PC secondary monitor, interactive touch macro station, and kernel-level virtual gamepad.
+            </p>
+        </div>
+
+        <div class="grid-4col" style="height: 380px; gap: 20px;">
+            <div class="glass-panel lime-edge" style="padding: 24px; justify-content: space-between;">
+                <div>
+                    <div class="micro-kicker">DISPLAY SPEC // TOP</div>
+                    <div class="panel-headline" style="font-size: 22px; margin-top: 4px;">400×240 Telemetry HUD</div>
+                    <p style="font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 10px;">
+                        Real-time CPU, GPU, RAM, VRAM, and motherboard sensor metrics at hardware-accelerated 20 FPS via Citro2D with zero host CPU penalty.
+                    </p>
+                </div>
+                <div style="border-top: 1px solid var(--border-faint, rgba(255,255,255,0.12)); padding-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary);">
+                    REFRESH // 20 FPS (50ms)
+                </div>
+            </div>
+
+            <div class="glass-panel lime-edge" style="padding: 24px; justify-content: space-between;">
+                <div>
+                    <div class="micro-kicker">INPUT SPEC // BOTTOM</div>
+                    <div class="panel-headline" style="font-size: 22px; margin-top: 4px;">320×240 Touch Tabs</div>
+                    <p style="font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 10px;">
+                        8 dedicated operational tabs: Pomodoro focus timer, audio visualizer, Hang Hunter process killer (SIGKILL), macro pad, and media player.
+                    </p>
+                </div>
+                <div style="border-top: 1px solid var(--border-faint, rgba(255,255,255,0.12)); padding-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary);">
+                    INTERACTION // 8 DEDICATED TABS
+                </div>
+            </div>
+
+            <div class="glass-panel accent-edge" style="padding: 24px; justify-content: space-between;">
+                <div>
+                    <div class="micro-kicker" style="color: var(--accent-secondary);">PROTOCOL SPEC // UDP 7339</div>
+                    <div class="panel-headline" style="font-size: 22px; margin-top: 4px;">Low-Latency uinput Pad</div>
+                    <p style="font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 10px;">
+                        Binary 3PAD UDP packets feeding Linux /dev/uinput for sub-5ms latency PC game control with Circle Pad, C-Stick, and digital triggers.
+                    </p>
+                </div>
+                <div style="border-top: 1px solid var(--border-faint, rgba(255,255,255,0.12)); padding-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">
+                    LATENCY // &lt; 5MS REAL-TIME
+                </div>
+            </div>
+
+            <div class="glass-panel accent-edge" style="padding: 24px; justify-content: space-between;">
+                <div>
+                    <div class="micro-kicker" style="color: var(--accent-secondary);">SERVER SPEC // LINUX DAEMON</div>
+                    <div class="panel-headline" style="font-size: 22px; margin-top: 4px;">Rust Async Backend</div>
+                    <p style="font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 10px;">
+                        Background tray daemon polling /sys/class/hwmon, handling MPRIS media bus, managing auth PINs, and serving embedded web config on port 7342.
+                    </p>
+                </div>
+                <div style="border-top: 1px solid var(--border-faint, rgba(255,255,255,0.12)); padding-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">
+                    BACKEND // RUST 2024 + TOKIO
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel" style="padding: 14px 28px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center; border-radius: 6px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="card-tag" style="margin: 0;">CORE SPECIFICATION:</span>
+                <span style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-secondary);">
+                    Universal-Updater Ready • Linux /dev/uinput Driver • hwmon Sensor Bus • 100% Open-Source MIT
+                </span>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <span class="lime-badge">CITRO2D / CITRO3D</span>
+                <span class="purple-badge">TOKIO ASYNC</span>
+                <span class="lime-badge">UNIVERSAL-DB</span>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,176 @@
+/* ==========================================================================
+   DECKFORGE CORE ENGINE: STAGE & VIEWPORT GEOMETRY
+   1920x1080 Fixed Canvas, Resets, Stage Scaling, Print Rules
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--bg-canvas, #0f172a);
+    font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+    color: var(--text-primary, #ffffff);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+}
+
+/* Viewport Wrapper: Fills entire browser window */
+.deck-viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: var(--bg-canvas, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 1920x1080 Master Stage: Fixed dimensions, scaled via transform */
+.deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: var(--bg-canvas, #0f172a);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+/* Base Backdrop Container */
+.stage-backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Slide Element Rules (Fixed 1920x1080 Canvas) */
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    background: transparent;
+    z-index: 2;
+    transition: opacity var(--animation-speed, 0.25s) ease;
+}
+
+.slide.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 3;
+}
+
+/* Universal Slide Bounding Box */
+.slide-frame {
+    position: absolute;
+    inset: 52px 56px 74px 56px;
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+}
+
+/* Subtle Stage Hairlines */
+.hairlines::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 56px;
+    right: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color, rgba(255,255,255,0.15)), transparent);
+    opacity: 0.4;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.hairlines::after {
+    content: '';
+    position: absolute;
+    bottom: 28px;
+    left: 56px;
+    right: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color, rgba(255,255,255,0.15)), transparent);
+    opacity: 0.4;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Slide Numbering Indicator */
+.deck-pagenum {
+    position: absolute;
+    right: 56px;
+    bottom: 38px;
+    font-family: var(--font-mono, monospace);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-primary, #3b82f6);
+    z-index: 12;
+    pointer-events: none;
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-delay: 0s !important;
+        transition-duration: 0s !important;
+    }
+}
+
+/* Print Rules for Handouts & PDF Generation */
+@media print {
+    html, body {
+        overflow: visible !important;
+        background: #ffffff !important;
+    }
+    .deck-viewport {
+        position: static !important;
+        overflow: visible !important;
+    }
+    .deck-stage {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+        box-shadow: none !important;
+    }
+    .slide {
+        position: relative !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        page-break-after: always;
+        break-after: page;
+        width: 1920px !important;
+        height: 1080px !important;
+    }
+    .deck-hud, .keyboard-help-modal, .master-index-backdrop, .edit-toggle, .edit-hotzone {
+        display: none !important;
+    }
+}

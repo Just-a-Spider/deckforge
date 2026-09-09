@@ -1,0 +1,145 @@
+<section class="slide" data-slide="6">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Network Topography &amp; Security: <span class="lime-hl">Port Matrix &amp; Access Control</span></div>
+            <div class="topbar-tag">PORT ALLOCATION • PIN AUTH HANDSHAKE • FIREWALL RULES • SPEC-006</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <div class="grid-2col" style="height: 600px;">
+                <!-- LEFT COLUMN: PORT TOPOGRAPHY & SECURITY -->
+                <div class="glass-panel lime-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="micro-kicker">NETWORK PROTOCOL SUITE</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 0;">Dedicated Port Topography</div>
+                            </div>
+                            <span class="lime-badge">4 PROTOCOL CHANNELS</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 10px; font-family: var(--font-mono); font-size: 12px; margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--accent-primary); font-weight: 700; font-size: 13px;">PORT 7341 // TCP</span>
+                                    <span class="lime-badge" style="font-size: 10px; padding: 2px 8px;">REQUIRED</span>
+                                </div>
+                                <div style="color: var(--text-primary); font-weight: 600; margin-top: 4px;">Telemetry Stream &amp; Bi-directional RPC</div>
+                                <div style="color: var(--text-secondary); font-family: var(--font-body); font-size: 12px; margin-top: 2px;">
+                                    Broadcasts hardware metrics to 3DS; receives <code style="font-family: var(--font-mono); color: var(--accent-primary);">kill</code>, <code style="font-family: var(--font-mono); color: var(--accent-primary);">macro</code>, and <code style="font-family: var(--font-mono); color: var(--accent-primary);">media</code> commands.
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--accent-primary); font-weight: 700; font-size: 13px;">PORT 7342 // TCP / HTTP</span>
+                                    <span class="lime-badge" style="font-size: 10px; padding: 2px 8px;">REQUIRED</span>
+                                </div>
+                                <div style="color: var(--text-primary); font-weight: 600; margin-top: 4px;">Web Config &amp; Mobile Read-Only HUD</div>
+                                <div style="color: var(--text-secondary); font-family: var(--font-body); font-size: 12px; margin-top: 2px;">
+                                    <code style="font-family: var(--font-mono); color: var(--accent-primary);">/config</code> strictly bound to localhost loopback; root <code style="font-family: var(--font-mono); color: var(--accent-primary);">/</code> serves responsive mobile telemetry.
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--accent-secondary); font-weight: 700; font-size: 13px;">PORT 7339 // UDP</span>
+                                    <span class="purple-badge" style="font-size: 10px; padding: 2px 8px;">GAMEPAD</span>
+                                </div>
+                                <div style="color: var(--text-primary); font-weight: 600; margin-top: 4px;">Virtual Gamepad Controller Datagrams</div>
+                                <div style="color: var(--text-secondary); font-family: var(--font-body); font-size: 12px; margin-top: 2px;">
+                                    High-frequency <code style="font-family: var(--font-mono); color: var(--accent-secondary);">3PAD</code> packet ingestion feeding Linux kernel <code style="font-family: var(--font-mono); color: var(--accent-secondary);">/dev/uinput</code>.
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-muted); font-weight: 700; font-size: 13px;">PORT 7340 // TCP / UDP</span>
+                                    <span class="card-tag" style="font-size: 10px; padding: 2px 8px; margin: 0;">OPTIONAL</span>
+                                </div>
+                                <div style="color: var(--text-primary); font-weight: 600; margin-top: 4px;">Screen Streaming Feed (CAM Tab)</div>
+                                <div style="color: var(--text-secondary); font-family: var(--font-body); font-size: 12px; margin-top: 2px;">
+                                    PipeWire / Wayland portal display mirror with delta compression.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 13px; padding: 10px 16px; border-left-color: var(--accent-primary);">
+                        <strong>Handshake Authorization:</strong> Every client handshake and UDP frame validates against the user-defined numeric PIN before processing actions.
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: FIREWALL RULES & ACCESS CONTROL -->
+                <div class="glass-panel accent-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="micro-kicker" style="color: var(--accent-secondary);">HOST HARDENING</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 0;">Firewall Configuration Rules</div>
+                            </div>
+                            <span class="purple-badge">DEFENSE IN DEPTH</span>
+                        </div>
+
+                        <p style="font-size: 14px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 14px;">
+                            Standard host firewall deployment recipes to open necessary SysMon telemetry and input ports across major Linux distributions:
+                        </p>
+
+                        <!-- FIREWALLD CONFIG -->
+                        <div style="margin-bottom: 14px;">
+                            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-secondary); margin-bottom: 4px; font-weight: 700;">
+                                FIREWALLD (Fedora / RHEL / openSUSE / CachyOS):
+                            </div>
+                            <div class="code-block" style="font-size: 11.5px; padding: 10px 14px; border-left: 3px solid var(--accent-secondary);">
+                                sudo firewall-cmd --add-port=7341/tcp --add-port=7342/tcp --add-port=7339/udp --permanent<br>
+                                sudo firewall-cmd --reload
+                            </div>
+                        </div>
+
+                        <!-- UFW CONFIG -->
+                        <div style="margin-bottom: 14px;">
+                            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-primary); margin-bottom: 4px; font-weight: 700;">
+                                UFW (Ubuntu / Debian / Arch Linux):
+                            </div>
+                            <div class="code-block" style="font-size: 11.5px; padding: 10px 14px; border-left: 3px solid var(--accent-primary);">
+                                sudo ufw allow 7341/tcp comment 'SysMon Telemetry'<br>
+                                sudo ufw allow 7342/tcp comment 'SysMon Web'<br>
+                                sudo ufw allow 7339/udp comment 'SysMon Gamepad'
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.45;">
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 8px 12px; border-radius: 4px;">
+                                <strong style="color: var(--text-primary);">Localhost Loopback Isolation:</strong>
+                                <span style="color: var(--text-secondary);"> Web configuration mutations (<code style="font-family: var(--font-mono); color: var(--accent-secondary);">/config</code>) reject any non-127.0.0.1 IP requests.</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 8px 12px; border-radius: 4px;">
+                                <strong style="color: var(--text-primary);">Brute-Force Rate Limiting:</strong>
+                                <span style="color: var(--text-secondary);"> Mismatched PIN attempts trigger rate-limited warning alarms to prevent LAN enumeration.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border-faint); padding-top: 12px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                        <span>LAN SCOPE: RFC 1918 PRIVATE SUBSETS</span>
+                        <span style="color: var(--accent-primary);">STATUS // HARDENED</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEDGER SPEC FOOTER -->
+            <div class="glass-panel" style="padding: 12px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 24px; font-family: var(--font-mono); font-size: 12px;">
+                    <div><span style="color: var(--text-muted);">TELEMETRY PORT:</span> <strong style="color: var(--accent-primary);">7341 TCP</strong></div>
+                    <div><span style="color: var(--text-muted);">WEB/MOBILE PORT:</span> <strong style="color: var(--accent-primary);">7342 TCP</strong></div>
+                    <div><span style="color: var(--text-muted);">GAMEPAD PORT:</span> <strong style="color: var(--accent-secondary);">7339 UDP</strong></div>
+                    <div><span style="color: var(--text-muted);">CAM PORT:</span> <strong style="color: var(--text-muted);">7340 TCP/UDP (OPTIONAL)</strong></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="lime-badge">FIREWALL READY</span>
+                    <span class="purple-badge">LOOPBACK GUARD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

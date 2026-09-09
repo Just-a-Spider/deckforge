@@ -1,0 +1,134 @@
+<section class="slide active visible" data-slide="10">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Derechos ARCO en Microservicios: <span class="lime-hl">Orquestación de Eventos &amp; Kafka</span></div>
+            <div class="topbar-tag">EVENT-DRIVEN ARCHITECTURE • SAGA PATTERN • CQRS • APACHE KAFKA • DLQ</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <!-- TOP HERO SPLIT: SAGA STEPS & JSON SCHEMAS -->
+            <div class="glass-panel" style="padding: 16px 24px; background: var(--bg-surface-elevated, var(--bg-surface)); display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">ORQUESTACIÓN VS. COREOGRAFÍA</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Se prefiere un microservicio <strong>Orquestador Saga</strong> dedicado para rastrear en tiempo real el progreso de borrado y certificar el cumplimiento frente a la ANPD.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">CONTROL DE READ MODELS (CQRS)</span><br>
+                        <span style="color: var(--text-secondary);">
+                            La invalidación síncrona de cache (Redis) y proyecciones de lectura impide que un usuario siga apareciendo en búsquedas tras ejercer su cancelación.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">CERTIFICADO DE DESTRUCCIÓN</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Al recolectar todos los ACKs, el sistema genera un informe criptográfico de borrado que se archiva por 2 años según la Directiva R.D. 019-2013-JUS.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Acronym Glossary Badges -->
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--border-faint); padding-top: 8px; font-family: var(--font-mono); font-size: 12px;">
+                    <span style="color: var(--accent-primary); font-weight: 700;">GLOSARIO ARQUITECTURA:</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>EDA:</strong> Event-Driven Architecture</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>CQRS:</strong> Command Query Responsibility Segregation</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>SAGA:</strong> Patrón de Transacción Distribuida con Compensación</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>DLQ:</strong> Dead Letter Queue (Cola de Mensajes Fallidos)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>FIFO:</strong> First-In, First-Out (Ordenamiento Estricto)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>ACK:</strong> Acknowledgment (Confirmación de Procesamiento)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>SRE:</strong> Site Reliability Engineering</span>
+                </div>
+            </div><div class="grid-split-hero" style="height: 550px;">
+                <!-- LEFT: SAGA ORCHESTRATION WORKFLOW -->
+                <div class="glass-panel lime-edge" style="padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 22px;">Patrón Saga y Cascada de Eventos</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary); margin-top: 2px;">
+                                    TRANSACCIONES DISTRIBUIDAS SIN BLOQUEOS DOS FASES (2PC)
+                                </div>
+                            </div>
+                            <span class="lime-badge" style="font-size: 10px;">ARQUITECTURA EDA</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="glass-step-box" style="padding: 12px 16px;">
+                                <div class="step-num">01. API GATEWAY &amp; RECEPCIÓN AUTENTICADA</div>
+                                <div class="step-desc" style="font-size: 13.5px; margin-top: 2px;">
+                                    El portal ARCO valida la identidad del titular (DNI + OTP/MFA), genera un <code style="color: var(--accent-primary);">transactionId</code>, emite acuse de recibo con timestamp y activa el orquestador central.
+                                </div>
+                            </div>
+
+                            <div class="glass-step-box" style="padding: 12px 16px;">
+                                <div class="step-num">02. KAFKA PARTITIONING (KEY = USER_ID)</div>
+                                <div class="step-desc" style="font-size: 13.5px; margin-top: 2px;">
+                                    Publicación en tópico particionado con clave <code style="color: var(--accent-primary);">key = userId</code> para garantizar orden <strong>FIFO estricto</strong> y evitar condiciones de carrera (race conditions) entre eventos concurrentes.
+                                </div>
+                            </div>
+
+                            <div class="glass-step-box" style="padding: 12px 16px;">
+                                <div class="step-num">03. SINCRONIZACIÓN CQRS &amp; PURGA DE CACHE</div>
+                                <div class="step-desc" style="font-size: 13.5px; margin-top: 2px;">
+                                    Consumidores actualizan bases locales (PostgreSQL, MongoDB), ejecutan purga en Redis (<code style="color: var(--accent-primary);">DEL user:id:*</code>) y desindexan ElasticSearch para evitar lecturas de datos cancelados.
+                                </div>
+                            </div>
+
+                            <div class="glass-step-box" style="padding: 12px 16px; border-left-color: var(--accent-danger, #ef4444);">
+                                <div class="step-num" style="color: var(--accent-danger, #ef4444);">04. RESILIENCIA CON DEAD LETTER QUEUE (DLQ)</div>
+                                <div class="step-desc" style="font-size: 13.5px; margin-top: 2px;">
+                                    Si un microservicio dependiente está inactivo, los reintentos con backoff exponencial desvían el mensaje a la <strong>DLQ</strong>, alertando a <strong>SRE</strong> antes de agotar los 10 días hábiles.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: La consistencia eventual es admisible técnicamente, pero debe converger al 100% dentro del plazo legal perentorio.
+                    </div>
+                </div>
+
+                <!-- RIGHT: EVENT PAYLOAD SPECIFICATION -->
+                <div class="glass-panel purple-edge" style="padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 21px;">Esquema del Evento en Kafka</div>
+                                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); margin-top: 2px;">PAYLOAD INMUTABLE CON FIRMA CRIPTOGRÁFICA</div>
+                            </div>
+                            <span class="purple-badge" style="font-size: 10px;">JSON SCHEMA</span>
+                        </div>
+
+                        <pre style="font-family: var(--font-mono); font-size: 12px; line-height: 1.45; background: var(--bg-surface-elevated, var(--bg-surface)); padding: 14px; border: 1px solid var(--border-faint); color: var(--accent-primary); margin-bottom: 8px; border-radius: 4px; overflow: hidden;">{
+  "eventId": "evt_9b8f21c4-2026",
+  "eventType": "ARCO_CANCELLATION_DISPATCHED",
+  "aggregateId": "usr_huanuco_81293",
+  "timestampUtc": "2026-09-06T17:00:00Z",
+  "kafkaPartitionKey": "usr_huanuco_81293",
+  "payload": {
+    "action": "CASCADE_PURGE_AND_BLOCK",
+    "targets": ["AUTH", "CRM", "SEARCH", "BILLING"],
+    "statutoryDeadline": "2026-09-20T23:59:59Z",
+    "cryptoShredRequired": true
+  },
+  "signatureSha256": "8a3f9e2b1c0d4f7e...9a"
+}</pre>
+
+                        <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-secondary); line-height: 1.45;">
+                            <strong style="color: var(--text-primary);">Validez Probatoria:</strong> El evento firmado digitalmente en el broker Kafka constituye evidencia forense auditable ante requerimientos de inspección de la <strong>DFI</strong>.
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: Cada microservicio debe responder con un ACK persistente antes de marcar la solicitud como completada.
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOWER COMPARATIVE LEDGER: SAGAS & GLOSSARY -->
+
+        </div>
+    </div>
+</section>

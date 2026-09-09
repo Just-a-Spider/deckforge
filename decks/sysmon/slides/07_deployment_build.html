@@ -1,0 +1,127 @@
+<section class="slide" data-slide="7">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Packaging &amp; Toolchains: <span class="lime-hl">Dual-Platform Build Pipeline</span></div>
+            <div class="topbar-tag">RUST CARGO • DEVKITARM LIBCTRU • UNIVERSAL-DB INDEXED • SPEC-007</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <div class="grid-2col" style="height: 600px;">
+                <!-- LEFT COLUMN: HOST LINUX SERVER -->
+                <div class="glass-panel lime-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="micro-kicker">SERVER BUILD PIPELINE</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 0;">Linux Host Daemon (Rust)</div>
+                            </div>
+                            <span class="lime-badge">CARGO &amp; PACKAGING</span>
+                        </div>
+
+                        <p style="font-size: 14px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 14px;">
+                            The Linux background daemon is compiled with Cargo using Rust 2024 edition. Multiple distribution workflows are supported:
+                        </p>
+
+                        <!-- RPM BUILD -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-primary); margin-bottom: 4px; font-weight: 700;">
+                                OPTION A: NATIVE RPM (Fedora / RHEL / openSUSE):
+                            </div>
+                            <div class="code-block" style="font-size: 11.5px; padding: 10px 14px; border-left: 3px solid var(--accent-primary);">
+                                cd sysmon-server &amp;&amp; cargo build --release<br>
+                                cargo generate-rpm<br>
+                                sudo rpm -i target/generate-rpm/sysmon-server-*.rpm
+                            </div>
+                        </div>
+
+                        <!-- ARCH INSTALLER -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-primary); margin-bottom: 4px; font-weight: 700;">
+                                OPTION B: ARCH LINUX / CACHYOS / MANJARO:
+                            </div>
+                            <div class="code-block" style="font-size: 11.5px; padding: 10px 14px; border-left: 3px solid var(--accent-primary);">
+                                ./install-arch.sh<br>
+                                # Or compile PKGBUILD directly: cd sysmon-server/packaging &amp;&amp; makepkg -si
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                            <strong style="color: var(--text-primary); font-size: 12.5px;">Automated udev Permissions:</strong>
+                            <p style="color: var(--text-secondary); font-size: 12px; margin-top: 2px;">
+                                Pre-packaged releases install <code style="font-family: var(--font-mono); color: var(--accent-primary);">99-sysmon-uinput.rules</code> and grant rootless gamepad access automatically.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border-faint); padding-top: 12px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                        <span>TARGET: x86_64 / aarch64 LINUX</span>
+                        <span style="color: var(--accent-primary);">STATUS // PRODUCTION READY</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: 3DS CLIENT & UNIVERSAL-DB -->
+                <div class="glass-panel accent-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="micro-kicker" style="color: var(--accent-secondary);">HANDHELD CLIENT PIPELINE</div>
+                                <div class="panel-headline" style="font-size: 22px; margin-bottom: 0;">Nintendo 3DS Homebrew</div>
+                            </div>
+                            <span class="purple-badge">UNIVERSAL-DB</span>
+                        </div>
+
+                        <p style="font-size: 14px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 14px;">
+                            The handheld client is distributed globally through the community's primary homebrew ecosystem:
+                        </p>
+
+                        <!-- UNIVERSAL UPDATER -->
+                        <div style="background: rgba(129, 140, 248, 0.08); border: 1px solid var(--accent-secondary); padding: 12px 16px; border-radius: 4px; margin-bottom: 14px;">
+                            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary); font-weight: 700; margin-bottom: 4px;">
+                                UNIVERSAL-UPDATER DISTRIBUTION (Zero-Toolchain Setup):
+                            </div>
+                            <p style="font-size: 12.5px; line-height: 1.5; color: var(--text-primary); margin: 0;">
+                                SysMon is officially cataloged in <strong>Universal-DB</strong>. Users launch Universal-Updater on the 3DS, search <strong>"SysMon"</strong>, and install directly via Wi-Fi.
+                            </p>
+                        </div>
+
+                        <!-- DEV TOOLCHAIN -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-secondary); margin-bottom: 4px; font-weight: 700;">
+                                COMPILING FROM SOURCE (devkitARM + libctru):
+                            </div>
+                            <div class="code-block" style="font-size: 11.5px; padding: 10px 14px; border-left: 3px solid var(--accent-secondary);">
+                                cd sysmon-3ds<br>
+                                make cia   # Compiles .cia for direct HOME Menu injection<br>
+                                make       # Compiles .3dsx for Homebrew Launcher
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--text-secondary);">
+                            <div>• <strong style="color: var(--text-primary);">bannertool &amp; makerom:</strong> Builds authentic SMDH metadata, 3D banners, and icons.</div>
+                            <div>• <strong style="color: var(--text-primary);">RomFS Packaging:</strong> Bundles Monocraft bitmap fonts and CSND buzzer sound effects.</div>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border-faint); padding-top: 12px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                        <span>TARGET: ARM11 CTR-001 / RED-001</span>
+                        <span style="color: var(--accent-secondary);">FORMATS: .CIA &amp; .3DSX</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEDGER SPEC FOOTER -->
+            <div class="glass-panel" style="padding: 12px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 24px; font-family: var(--font-mono); font-size: 12px;">
+                    <div><span style="color: var(--text-muted);">INDEXED:</span> <strong style="color: var(--accent-primary);">UNIVERSAL-DB</strong></div>
+                    <div><span style="color: var(--text-muted);">HOST ENGINE:</span> <strong style="color: var(--text-primary);">RUST 2024 / TOKIO</strong></div>
+                    <div><span style="color: var(--text-muted);">CLIENT ENGINE:</span> <strong style="color: var(--text-primary);">C99 / CITRO2D / PICA200</strong></div>
+                    <div><span style="color: var(--text-muted);">LICENSE:</span> <strong style="color: var(--accent-primary);">MIT OPEN SOURCE</strong></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="lime-badge">ZERO-RUNTIME</span>
+                    <span class="purple-badge">UNIVERSAL-UPDATER</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

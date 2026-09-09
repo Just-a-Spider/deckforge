@@ -1,0 +1,10 @@
+
+.stage-backdrop {
+    background-color: var(--bg-canvas);
+    background-image:
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        radial-gradient(circle at 92% 8%, rgba(130, 0, 36, 0.04) 0%, transparent 45%),
+        radial-gradient(circle at 8% 92%, rgba(15, 23, 42, 0.04) 0%, transparent 45%);
+    background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+}

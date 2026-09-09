@@ -1,0 +1,171 @@
+<section class="slide" data-slide="9">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Derechos ARCO: <span class="lime-hl">Taxonomía Legal y Plazos Perentorios</span></div>
+            <div class="topbar-tag">ARTS. 18 A 23 LEY 29733 • DÍAS HÁBILES • BLOQUEO PREVIO • ENDPOINTS API</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <!-- TOP HERO SPLIT: ARCO TABLE & TUTELA PANEL -->
+            <div class="grid-split-hero" style="height: 550px;">
+                <!-- LEFT: ARCO RIGHTS TABLE -->
+                <div class="glass-panel lime-edge" style="padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 22px;">Matriz Operativa de Derechos ARCO</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary); margin-top: 2px;">
+                                    PLAZOS PERENTORIOS EN DÍAS HÁBILES & REQUERIMIENTOS TI
+                                </div>
+                            </div>
+                            <span class="lime-badge" style="font-size: 10px;">ARTS. 18–22</span>
+                        </div>
+
+                        <table class="glass-table" style="margin-top: 4px;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 22%;">Derecho</th>
+                                    <th style="width: 24%;">Plazo Legal</th>
+                                    <th style="width: 24%;">Endpoint REST TI</th>
+                                    <th style="width: 30%;">Alcance & Lógica de Sistema</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="td-name" style="font-size: 15px;">ACCESO</div>
+                                        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">Art. 19</span>
+                                    </td>
+                                    <td>
+                                        <div class="td-mono" style="font-size: 13px; font-weight: 700; color: var(--accent-primary);">20 DÍAS HÁBILES</div>
+                                        <span style="font-size: 11px; color: var(--text-muted);">(Prorrogable +10 d.h.)</span>
+                                    </td>
+                                    <td><code style="color: var(--accent-primary); font-size: 11.5px;">GET /data-export</code></td>
+                                    <td style="font-size: 13.5px;">Genera un paquete estructurado (JSON/ZIP cifrado) con origen, finalidades y transferencias de su PII.</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="td-name" style="font-size: 15px;">RECTIFICACIÓN</div>
+                                        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">Art. 20</span>
+                                    </td>
+                                    <td>
+                                        <div class="td-mono" style="font-size: 13px; font-weight: 700; color: var(--accent-secondary);">10 DÍAS HÁBILES</div>
+                                        <span style="font-size: 11px; color: var(--text-muted);">(Plazo improrrogable)</span>
+                                    </td>
+                                    <td><code style="color: var(--accent-secondary); font-size: 11.5px;">PATCH /attributes</code></td>
+                                    <td style="font-size: 13.5px;">Actualización atómica de datos inexactos o incompletos en la base primaria y réplicas distribuidas.</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="td-name" style="font-size: 15px;">CANCELACIÓN</div>
+                                        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">Art. 21</span>
+                                    </td>
+                                    <td>
+                                        <div class="td-mono" style="font-size: 13px; font-weight: 700; color: var(--accent-secondary);">10 DÍAS HÁBILES</div>
+                                        <span style="font-size: 11px; color: var(--text-muted);">(Supresión / Olvido)</span>
+                                    </td>
+                                    <td><code style="color: var(--accent-secondary); font-size: 11.5px;">POST /anonymize</code></td>
+                                    <td style="font-size: 13.5px;">Supresión de registros no necesarios con <strong>Bloqueo Previo</strong> (aislamiento lógico de producción).</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="td-name" style="font-size: 15px;">OPOSICIÓN</div>
+                                        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">Art. 22</span>
+                                    </td>
+                                    <td>
+                                        <div class="td-mono" style="font-size: 13px; font-weight: 700; color: var(--accent-secondary);">10 DÍAS HÁBILES</div>
+                                        <span style="font-size: 11px; color: var(--text-muted);">(Prospección / Spam)</span>
+                                    </td>
+                                    <td><code style="color: var(--accent-secondary); font-size: 11.5px;">POST /opt-out</code></td>
+                                    <td style="font-size: 13.5px;">Inscripción síncrona en <em>Suppression Lists</em> para cesar de inmediato campañas publicitarias.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border-left: 3px solid var(--accent-primary); padding: 8px 14px; margin-top: 6px;">
+                        <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12px;">GRATUIDAD MANDATORIA (ART. 52 D.S. 003-2013-JUS):</strong>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">
+                            El ejercicio de todo derecho ARCO es <strong>estrictamente gratuito</strong>. Prohibido cobrar aranceles o tarifas por emitir reportes o ejecutar bajas en los sistemas.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: TUTELA PROCEDURAL FLOW & SANCTION -->
+                <div class="glass-panel purple-edge" style="padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 21px;">Tutela Administrativa y Sanción</div>
+                                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-secondary); margin-top: 2px;">PROCEDIMIENTO ANTE LA ANPD (ART. 23)</div>
+                            </div>
+                            <span class="purple-badge" style="font-size: 10px;">PROCEDIMIENTO TRILATERAL</span>
+                        </div>
+
+                        <div style="font-size: 14px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 10px;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">01. DENEGATORIA O SILENCIO ADMINISTRATIVO:</strong>
+                                <p style="margin-top: 2px;">
+                                    Si la empresa no responde en el plazo de 10 o 20 días hábiles, o deniega sin sustento técnico/legal, el titular acude a la ANPD interponiendo una solicitud de tutela.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">02. MANDATO DE CUMPLIMIENTO EN 5 DÍAS:</strong>
+                                <p style="margin-top: 2px;">
+                                    La ANPD notifica a la empresa otorgando un plazo perentorio de <strong>5 días</strong> para allanarse y entregar los datos o rectificarlos bajo apercibimiento de multa.
+                                </p>
+                            </div>
+
+                            <div style="background: rgba(239, 68, 68, 0.12); border-left: 3px solid var(--accent-danger, #ef4444); padding: 8px 12px;">
+                                <strong style="color: var(--accent-danger, #ef4444); font-family: var(--font-mono); font-size: 12px;">CALIFICACIÓN PUNITIVA:</strong>
+                                <div style="font-size: 13px; color: var(--text-primary); margin-top: 2px;">
+                                    Negar injustificadamente o ignorar un derecho ARCO es una <strong>infracción GRAVE</strong> sancionada con multas de hasta <strong>50 UIT (S/ 257,500 PEN)</strong>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: Los plazos son estrictamente en DÍAS HÁBILES (excluyen sábados, domingos y feriados nacionales).
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOWER COMPARATIVE LEDGER: BLOQUEO PREVIO & GLOSSARY -->
+            <div class="glass-panel" style="padding: 16px 24px; background: var(--bg-surface-elevated, var(--bg-surface)); display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">DOCTRINA DE BLOQUEO PREVIO (ART. 21)</span><br>
+                        <span style="color: var(--text-secondary);">
+                            En Cancelación, el dato no se destruye de inmediato si existe deber legal de conservación tributaria (<strong>SUNAT: 5 años</strong>) o financiera (<strong>SBS: 10 años</strong>). Se pasa a estado <code style="color: var(--accent-primary);">BLOCKED</code>: aislado e inaccesible para operaciones.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">ACREDITACIÓN DE IDENTIDAD DIGITAL</span><br>
+                        <span style="color: var(--text-secondary);">
+                            El responsable TI debe validar fehacientemente la identidad del solicitante (e.g. firma digital, OTP o credencial verificada) antes de despachar datos sensibles para evitar ataques de suplantación.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">EXCEPCIONES TÉCNICAS LEGALES</span><br>
+                        <span style="color: var(--text-secondary);">
+                            No procede la cancelación ni oposición si existe mandato judicial expreso, investigación penal de la Fiscalía o un contrato vigente pendiente de cumplimiento recíproco.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Acronym Glossary Badges -->
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--border-faint); padding-top: 8px; font-family: var(--font-mono); font-size: 12px;">
+                    <span style="color: var(--accent-primary); font-weight: 700;">GLOSARIO ARCO:</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>ARCO:</strong> Acceso, Rectificación, Cancelación, Oposición</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>D.H.:</strong> Días Hábiles (Cómputo laborable)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>SUNAT:</strong> Superint. Nacional de Aduanas y Administración Tributaria</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>SBS:</strong> Superint. de Banca, Seguros y AFP</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>PAS:</strong> Procedimiento Administrativo Sancionador</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>OTP:</strong> One-Time Password (Token temporal)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

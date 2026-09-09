@@ -1,0 +1,15 @@
+# DeckForge gitignore
+
+# Build outputs
+dist/
+decks/*/dist/
+exports/
+
+# Binaries (preserve tracked launcher)
+bin/*
+!bin/deckforge
+
+# Editor & OS files
+.DS_Store
+*.swp
+*.tmp

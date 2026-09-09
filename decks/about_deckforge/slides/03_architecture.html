@@ -1,0 +1,143 @@
+<section class="slide" data-slide="3">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">1080p Canvas Engine: <span class="lime-hl">Deterministic Layout Guarantees</span></div>
+            <div class="topbar-tag">CANVAS MATHEMATICS • ZERO VIEWPORT DRIFT • SPEC-001</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 16px;">
+            <!-- SPLIT HERO GRID -->
+            <div class="grid-split-hero" style="height: 600px;">
+                <!-- LEFT PANEL: MATHEMATICAL INVARIANTS -->
+                <div class="glass-panel lime-edge" style="padding: 26px 30px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 16px; padding-bottom: 12px;">
+                            <div>
+                                <div class="micro-kicker">STAGE MATHEMATICS</div>
+                                <div class="panel-headline" style="font-size: 24px; margin-bottom: 2px;">The Fixed 1920x1080 Canvas Invariant</div>
+                            </div>
+                            <span class="lime-badge">SCALE TRANSFORM</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.55;">
+                            <div>
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12.5px;">THE PROBLEM WITH DYNAMIC VIEWPORTS (vw/vh):</strong>
+                                <p style="color: var(--text-secondary); margin-top: 3px;">
+                                    Traditional web slides break when projected. Flex wrapping, viewport font calculations, and display ratio shifts cause cards to wrap onto multiple lines and headings to truncate.
+                                </p>
+                            </div>
+
+                            <div>
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12.5px;">THE DECKFORGE DETERMINISTIC SOLUTION:</strong>
+                                <p style="color: var(--text-secondary); margin-top: 3px;">
+                                    The DOM stage is strictly pinned to exactly <strong>1920px &times; 1080px</strong>. The runtime calculates uniform scale using hardware-accelerated matrix transforms:
+                                </p>
+                            </div>
+
+                            <div class="code-block" style="font-size: 12.5px; padding: 12px 16px; border-left: 3px solid var(--accent-primary);">
+                                const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);<br>
+                                deckStage.style.transform = `scale(${scale})`;
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 2px;">
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700;">ZERO VIEWPORT DRIFT</div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">Pixel-identical layout on laptop, 4K monitor, or projector.</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-faint); padding: 10px 14px; border-radius: 4px;">
+                                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700;">HEADLESS 4K EXPORT</div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">Pixel-perfect PDF handouts and 3840x2160 UHD capture.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 13px; padding: 10px 16px; border-left-color: var(--accent-primary);">
+                        <strong>Architectural Guarantee:</strong> What the developer builds on an ultrawide screen renders identically on a client's conference display.
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: GRID SYSTEM & GLASSMORPHISM -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- CSS GRID SYSTEM -->
+                    <div class="glass-panel accent-edge" style="padding: 22px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                                <div>
+                                    <div class="micro-kicker" style="color: var(--accent-secondary);">LAYOUT PRIMITIVES</div>
+                                    <div class="panel-headline" style="font-size: 20px; margin-bottom: 0;">Predictable Grid System</div>
+                                </div>
+                                <span class="purple-badge">CSS GRID</span>
+                            </div>
+
+                            <p style="font-size: 14px; line-height: 1.5; color: var(--text-secondary); margin-bottom: 12px;">
+                                Pre-engineered layout containers strictly bounded to the 1080p frame without flex-wrapping hazards:
+                            </p>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-family: var(--font-mono); font-size: 12px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 6px 12px; border-radius: 4px;">
+                                    <span style="color: var(--accent-secondary); font-weight: 700;">.grid-2col</span>
+                                    <span style="color: var(--text-secondary);">Dual equal panels (50% / 50%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 6px 12px; border-radius: 4px;">
+                                    <span style="color: var(--accent-secondary); font-weight: 700;">.grid-3col</span>
+                                    <span style="color: var(--text-secondary);">Triad architecture pillars (33.3% &times; 3)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 6px 12px; border-radius: 4px;">
+                                    <span style="color: var(--accent-secondary); font-weight: 700;">.grid-split-hero</span>
+                                    <span style="color: var(--text-secondary);">Asymmetric focus layout (57% / 43%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 6px 12px; border-radius: 4px;">
+                                    <span style="color: var(--accent-secondary); font-weight: 700;">.grid-metrics</span>
+                                    <span style="color: var(--text-secondary);">Auto-fit dense statistic cards</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GLASSMORPHISM & TOKENS -->
+                    <div class="glass-panel lime-edge" style="padding: 22px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div class="glass-panel-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                                <div>
+                                    <div class="micro-kicker">SURFACE PRIMITIVES</div>
+                                    <div class="panel-headline" style="font-size: 20px; margin-bottom: 0;">Glassmorphic Surfaces</div>
+                                </div>
+                                <span class="lime-badge">OLED DEPTH</span>
+                            </div>
+
+                            <p style="font-size: 14px; line-height: 1.5; color: var(--text-secondary); margin-bottom: 10px;">
+                                Multi-layered depth stack combining high-performance CSS blur filters with semantic anchor accents:
+                            </p>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+                                <div style="border-left: 3px solid var(--accent-primary); padding-left: 10px;">
+                                    <strong style="color: var(--text-primary);">.lime-edge / .accent-edge:</strong>
+                                    <span style="color: var(--text-secondary);">Visual anchor lines drawing executive attention.</span>
+                                </div>
+                                <div style="border-left: 3px solid var(--accent-secondary); padding-left: 10px;">
+                                    <strong style="color: var(--text-primary);">Backdrop Separation:</strong>
+                                    <span style="color: var(--text-secondary);">Layered z-index stack isolating canvas from HUD overlay.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANVAS SPECIFICATION LEDGER -->
+            <div class="glass-panel" style="padding: 12px 24px; background: var(--bg-surface-elevated); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 24px; font-family: var(--font-mono); font-size: 12px;">
+                    <div><span style="color: var(--text-muted);">STAGE:</span> <strong style="color: var(--accent-primary);">1920 &times; 1080 PX</strong></div>
+                    <div><span style="color: var(--text-muted);">RATIO:</span> <strong style="color: var(--text-primary);">16:9 LOCKED</strong></div>
+                    <div><span style="color: var(--text-muted);">UNITS:</span> <strong style="color: var(--text-primary);">PX / % STRICT</strong></div>
+                    <div><span style="color: var(--text-muted);">VIEWPORT UNITS (vw/vh):</span> <strong style="color: #ef4444;">FORBIDDEN</strong></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="lime-badge">GPU ACCELERATED</span>
+                    <span class="purple-badge">ZERO OVERFLOW</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,133 @@
+<section class="slide" data-slide="14">
+    <div class="slide-frame">
+        <div class="slide-topbar">
+            <div class="topbar-title">Caso 1: BCP — <span class="lime-hl">Doctrina Sancionadora R.D. 045-2020-JUS</span></div>
+            <div class="topbar-tag">PRECEDENTE VINCULANTE: LA SEGURIDAD NO SE TERCERIZA • CULPA IN VIGILANDO</div>
+        </div>
+
+        <div class="slide-content-area" style="gap: 18px;">
+            <!-- 2-COLUMN PANELS: LEGAL DOCTRINE vs VENDOR GOVERNANCE -->
+            <div class="grid-2col" style="height: 590px;">
+                <!-- PANEL 1: DOCTRINA SANCIONADORA ANPD -->
+                <div class="glass-panel lime-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 23px;">Responsabilidad "In Vigilando"</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary); margin-top: 2px;">
+                                    DOCTRINA JURÍDICA: INEFICACIA DE CLÁUSULAS DE EXONERACIÓN
+                                </div>
+                            </div>
+                            <span class="lime-badge" style="font-size: 10px;">PRECEDENTE ANPD</span>
+                        </div>
+
+                        <div style="font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary);">01. CONTEXTO Y DEFENSA DEL BANCO (BCP):</strong>
+                                <p style="margin-top: 2px;">
+                                    Tras la exfiltración de 1.5M de registros bancarios en 2018, el banco argumentó que la intrusión ocurrió en la infraestructura de un proveedor externo de analítica. La ANPD <strong>rechazó tajantemente la defensa</strong>.
+                                </p>
+                            </div>
+
+                            <div style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border-left: 3px solid var(--accent-primary); padding: 8px 12px;">
+                                <strong style="color: var(--accent-primary); font-family: var(--font-mono); font-size: 12px;">NULIDAD DE PACTOS DE EXONERACIÓN:</strong>
+                                <div style="font-size: 13.5px; color: var(--text-primary); margin-top: 2px;">
+                                    Las cláusulas contractuales donde el proveedor "asume toda responsabilidad por fugas" son <strong>ineficaces y nulas</strong> ante la ANPD. El titular del banco de datos es el único responsable legal.
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);">02. CULPA IN ELIGENDO & IN VIGILANDO:</strong>
+                                <p style="margin-top: 2px;">
+                                    Negligencia dual: falla en seleccionar un contratista sin exigir estándares de seguridad (<code style="color: var(--accent-primary);">in eligendo</code>) y omisión total de auditorías periódicas a sus accesos (<code style="color: var(--accent-primary);">in vigilando</code>).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: La empresa principal responde administrativamente ante el Estado; solo le queda demandar al proveedor por la vía civil posterior (acción de repetición).
+                    </div>
+                </div>
+
+                <!-- PANEL 2: VENDOR RISK MANAGEMENT (VRM) EN TI -->
+                <div class="glass-panel purple-edge" style="padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="glass-panel-header" style="margin-bottom: 14px; padding-bottom: 10px;">
+                            <div>
+                                <div class="panel-headline" style="font-size: 23px;">Gobernanza TI de Terceros (VRM)</div>
+                                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary); margin-top: 2px;">
+                                    LECCIONES DE ARQUITECTURA & COMPLIANCE DE CONTRATISTAS
+                                </div>
+                            </div>
+                            <span class="purple-badge" style="font-size: 10px;">DEVSECOPS</span>
+                        </div>
+
+                        <div style="font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-secondary);">01. CONTRATOS DPA & CERTIFICACIÓN EXIGIBLE:</strong>
+                                <p style="margin-top: 2px;">
+                                    Obligatoriedad de suscribir un <strong>Data Processing Agreement (DPA)</strong> con cláusulas que exijan cumplimiento de la R.D. 019-2013-JUS, reportes <strong>SOC 2 Type II</strong> o certificación <strong>ISO/IEC 27001</strong>.
+                                </p>
+                            </div>
+
+                            <div style="background: rgba(129, 140, 248, 0.12); border-left: 3px solid var(--accent-secondary); padding: 8px 12px;">
+                                <strong style="color: var(--accent-secondary); font-family: var(--font-mono); font-size: 12px;">SLA MANDATORIO DE BRECHAS (&lt; 12 HORAS):</strong>
+                                <div style="font-size: 13.5px; color: var(--text-primary); margin-top: 2px;">
+                                    El proveedor debe reportar cualquier anomalía al titular en menos de 12h para que la empresa pueda cumplir el plazo legal perentorio de <strong>48h ante la ANPD</strong> (D.S. 016-2024-JUS).
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong style="font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);">02. HARDWARE MFA INNEGOCIABLE (FIDO2):</strong>
+                                <p style="margin-top: 2px;">
+                                    Todo desarrollador o analista externo con acceso a APIs o VPNs debe autenticarse obligatoriamente con llaves físicas de seguridad (FIDO2 / WebAuthn) no interceptables por phishing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-takeaway" style="font-size: 12px;">
+                        Criterio de Examen: La omisión de MFA en cuentas administrativas de terceros califica como negligencia grave en los peritajes de la DFI.
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOWER COMPARATIVE LEDGER: JURISPRUDENCE & GLOSSARY -->
+            <div class="glass-panel" style="padding: 16px 24px; background: var(--bg-surface-elevated, var(--bg-surface)); display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">ACCIÓN DE REPETICIÓN CIVIL</span><br>
+                        <span style="color: var(--text-secondary);">
+                            El banco debe pagar la multa íntegra impuesta por la ANPD de forma inmediata, y solo posteriormente puede iniciar un litigio civil para cobrar indemnizaciones a su proveedor.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45; border-right: 1px solid var(--border-faint); padding-right: 16px;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">PLAN DE REMEDIACIÓN OBLIGATORIO</span><br>
+                        <span style="color: var(--text-secondary);">
+                            La resolución R.D. 045-2020 impuso al BCP auditorías externas periódicas y la implementación forzosa de controles criptográficos y tokenización en entornos cloud.
+                        </span>
+                    </div>
+                    <div style="font-size: 13.5px; line-height: 1.45;">
+                        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-primary); font-size: 12px; letter-spacing: 0.08em;">DERECHO A AUDITORÍAS SORPRESIVAS</span><br>
+                        <span style="color: var(--text-secondary);">
+                            Los contratos de desarrollo deben reservar expresamente la facultad de ejecutar auditorías técnicas in-situ y pentesting no anunciados sobre la infraestructura del proveedor.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Acronym Glossary Badges -->
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--border-faint); padding-top: 8px; font-family: var(--font-mono); font-size: 12px;">
+                    <span style="color: var(--accent-primary); font-weight: 700;">GLOSARIO DE GOBERNANZA:</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>VRM:</strong> Vendor Risk Management (Riesgo de Proveedores)</span>
+                    <span style="background: var(--accent-glow, rgba(16, 185, 129, 0.15)); border: 1px solid var(--accent-primary); padding: 2px 8px; color: var(--accent-primary);"><strong>DPA:</strong> Data Processing Agreement (Contrato de Encargo)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>SLA:</strong> Service Level Agreement</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>FIDO2:</strong> Fast Identity Online (Llaves Criptográficas Físicas)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>SOC 2:</strong> Service Organization Control 2 (Auditoría Cloud)</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>BCP:</strong> Banco de Crédito del Perú</span>
+                    <span style="background: rgba(129, 140, 248, 0.15); border: 1px solid var(--border-faint); padding: 2px 8px; color: var(--text-primary);"><strong>DFI:</strong> Dirección de Fiscalización e Instrucción</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
