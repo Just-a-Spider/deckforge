@@ -100,5 +100,17 @@
 - [x] Record ADR-0010 and update technical specifications
 - [x] Verify complete test suite and Living Development Book health
 
+## Phase 12: Subprocess Caching, Engine Acceleration & Installation Automation
+- [x] Implement SHA-256 in-memory (`sync.Map`) and persistent on-disk (`~/.cache/deckforge/scss/`) cache in `internal/theme/scss.go`
+- [x] Memoize Sass binary detection (`detectSassCompiler`) via `sync.Once`
+- [x] Memoize core embedded static CSS and JS assets in `internal/compiler/compiler.go`
+- [x] Upgrade file watcher in `internal/server/server.go` with 100ms timer-reset debouncer and active theme directory monitoring
+- [x] Build stripped 11MB binaries with `-ldflags="-s -w -X 'deckforge/cmd.Version=0.3.0'"`
+- [x] Add `deckforge version` command with runtime and platform details
+- [x] Implement native Fish shell autocompletions (`cmd/completion.go`, `completions/deckforge.fish`, `deckforge completion fish --install`)
+- [x] Create root `Makefile` with `make install-all` (build, install, completions, skill)
+- [x] Create standalone `install.sh` automated installation script
+- [x] Record ADR-0011 and verify Living Development Book audit health
+
 
 

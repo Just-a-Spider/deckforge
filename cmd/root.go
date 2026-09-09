@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"deckforge/internal/compiler"
@@ -79,6 +80,12 @@ func Execute() {
 			fmt.Printf("MCP Server error: %v\n", err)
 			os.Exit(1)
 		}
+
+	case "version", "-v", "--version":
+		runVersion()
+
+	case "completion":
+		runCompletion(os.Args[2:])
 
 	case "-h", "--help", "help":
 		printHelp()
@@ -436,6 +443,49 @@ func runTheme(args []string) {
 	}
 }
 
+// Version holds the current release version, overridable at build time via -ldflags
+var Version = "0.3.0"
+
+func runVersion() {
+	fmt.Printf("DeckForge v%s (%s/%s, runtime: %s)\n", Version, runtime.GOOS, runtime.GOARCH, runtime.Version())
+}
+
+func runCompletion(args []string) {
+	if len(args) < 1 {
+		fmt.Println("Usage: deckforge completion <shell> [--install]")
+		fmt.Println("Supported shells: fish")
+		return
+	}
+
+	shell := args[0]
+	install := false
+	for _, a := range args[1:] {
+		if a == "--install" || a == "-i" {
+			install = true
+		}
+	}
+
+	switch shell {
+	case "fish":
+		script := GenerateFishCompletion()
+		if install {
+			home, _ := os.UserHomeDir()
+			targetDir := filepath.Join(home, ".config", "fish", "completions")
+			_ = os.MkdirAll(targetDir, 0755)
+			targetFile := filepath.Join(targetDir, "deckforge.fish")
+			if err := os.WriteFile(targetFile, []byte(script), 0644); err != nil {
+				fmt.Printf("Error installing fish completion: %v\n", err)
+				os.Exit(1)
+			}
+			fmt.Printf("Fish completion installed to %s\n", targetFile)
+		} else {
+			fmt.Print(script)
+		}
+	default:
+		fmt.Printf("Unsupported shell '%s'. Supported shells: fish\n", shell)
+	}
+}
+
 func printHelp() {
 	fmt.Println(`DeckForge - 100% Pure Go Modular 1080p Presentation Platform
 
@@ -451,6 +501,8 @@ USAGE:
   deckforge theme [list|set|create|seed|clone] Theme management, assignment, and scaffolding
   deckforge book [status|log|audit]  Manage living Development Book
   deckforge list [--path <root>]     List themes and discovered presentations
+  deckforge completion <shell>       Generate shell autocompletions (fish) [--install]
+  deckforge version                  Display version, OS/architecture, and Go runtime
 
 FLAGS:
   --path <dir>       Target destination directory

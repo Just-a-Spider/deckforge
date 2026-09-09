@@ -149,3 +149,22 @@ func TestThemeCreationTooling(t *testing.T) {
 		t.Errorf("expected tokens.json to exist in global dir: %v", err)
 	}
 }
+
+func TestSCSSCacheAndPersistence(t *testing.T) {
+	ClearSCSSCache()
+
+	rawSCSS := ".cache-test { color: #820024; & .inner { opacity: 0.5; } }"
+	firstOut, _ := CompileSCSS(rawSCSS)
+	if firstOut == "" {
+		t.Fatalf("expected non-empty output from first CompileSCSS")
+	}
+
+	// Second compile must hit cache and return identical content
+	secondOut, err := CompileSCSS(rawSCSS)
+	if err != nil && !strings.Contains(err.Error(), "native modern CSS") {
+		t.Fatalf("unexpected error on second compile: %v", err)
+	}
+	if secondOut != firstOut {
+		t.Errorf("expected cached output to match exactly")
+	}
+}

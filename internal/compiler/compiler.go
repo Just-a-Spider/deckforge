@@ -5,11 +5,14 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	"deckforge/internal/assets"
 	"deckforge/internal/theme"
 	"deckforge/internal/workspace"
 )
+
+var embeddedAssetCache sync.Map
 
 // Compiler compiles any deck directory into standalone 1080p HTML
 type Compiler struct {
@@ -278,9 +281,15 @@ func (c *Compiler) loadAsset(relPath string) string {
 		}
 	}
 
-	// 2. Fall back to embedded asset
+	// 2. Check embedded asset cache
+	if cached, ok := embeddedAssetCache.Load(relPath); ok {
+		return cached.(string)
+	}
+
+	// 3. Fall back to embedded asset and memoize
 	embedded, err := assets.LoadCoreAsset(relPath)
 	if err == nil {
+		embeddedAssetCache.Store(relPath, embedded)
 		return embedded
 	}
 

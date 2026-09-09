@@ -21,6 +21,7 @@
 - [ADR-0008: CWD-First Workspace Resolution and In-TUI Theme Management](file:///home/andre/Desktop/Projects/deckforge/book/03_adrs/ADR-0008_cwd_root_resolution_and_in_tui_theme_management.md)
 - [ADR-0009: Typography Cascade Precedence, Universal Master Index, Vertical Budget Primitives, and Agent Metadata Mutation](file:///home/andre/Desktop/Projects/deckforge/book/03_adrs/ADR-0009_typography_cascade_universal_master_index_and_vertical_budget.md)
 - [ADR-0010: Full-Spectrum Theme Tokens, Modular Stylesheets, and SCSS Preprocessing](file:///home/andre/Desktop/Projects/deckforge/book/03_adrs/ADR-0010_full_spectrum_theme_token_and_modular_styles.md)
+- [ADR-0011: Compilation Acceleration, Subprocess Caching, and Installation Automation](file:///home/andre/Desktop/Projects/deckforge/book/03_adrs/ADR-0011_compilation_acceleration_and_installation_automation.md)
 
 ### 04. Technical Specifications
 - [Component Schema Specification](file:///home/andre/Desktop/Projects/deckforge/book/04_specifications/01_component_schema_spec.md)

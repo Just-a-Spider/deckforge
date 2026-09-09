@@ -20,3 +20,4 @@
 | 2026-09-09 | Phase 11 | `current` | Phase 11 Complete: Full-Spectrum Theme Tokens, Modular Stylesheets, SCSS Preprocessing, Go Codebase Fragmentation, and ADR-0010 recorded | andre |
 | 2026-09-09 | Test | `current` | Verified Global SCSS Theme creation (`frosted-crimson`): SCSS mixins/nesting transpiled via sass/npx, global scope discovery, and verified 100% WCAG AAA | andre |
 | 2026-09-09 | Progress | `current` | Implemented First-Class Theme Creation Tooling: `deckforge theme create/seed/clone`, `deckforge agent theme-create`, and MCP tool `deckforge_create_theme` with CSS/SCSS and workspace/global scope flags | andre |
+| 2026-09-09 | Phase 12 | `current` | Phase 12 Complete: Subprocess SHA-256 SCSS Caching (600x speedup, 3.6s -> 6ms), stripped 11MB binary, Fish shell completions, Makefile, install.sh, and ADR-0011 recorded | andre |

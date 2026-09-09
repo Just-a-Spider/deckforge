@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 	"path/filepath"
+	"strings"
+	"sync"
 	"time"
 
 	"deckforge/internal/compiler"
@@ -117,8 +120,25 @@ func (s *DeckServer) startWatcher() error {
 	_ = watcher.Add(slidesDir)
 	_ = watcher.Add(s.DeckPath)
 
+	// Watch theme directories (workspace themes/ and global ~/.config/deckforge/themes/)
+	if s.Compiler != nil && s.Compiler.ThemeManager != nil {
+		if s.Compiler.ThemeManager.WorkspaceRoot != "" {
+			wsThemes := filepath.Join(s.Compiler.ThemeManager.WorkspaceRoot, "themes")
+			if fi, err := os.Stat(wsThemes); err == nil && fi.IsDir() {
+				_ = watcher.Add(wsThemes)
+			}
+		}
+		if s.Compiler.ThemeManager.GlobalDir != "" {
+			if fi, err := os.Stat(s.Compiler.ThemeManager.GlobalDir); err == nil && fi.IsDir() {
+				_ = watcher.Add(s.Compiler.ThemeManager.GlobalDir)
+			}
+		}
+	}
+
 	go func() {
-		var lastRecompile time.Time
+		var debounceTimer *time.Timer
+		var timerLock sync.Mutex
+
 		for {
 			select {
 			case event, ok := <-watcher.Events:
@@ -126,13 +146,21 @@ func (s *DeckServer) startWatcher() error {
 					return
 				}
 				if event.Has(fsnotify.Write) || event.Has(fsnotify.Create) || event.Has(fsnotify.Remove) {
-					// Debounce 250ms
-					if time.Since(lastRecompile) > 250*time.Millisecond {
-						lastRecompile = time.Now()
+					// Ignore dist/ and temporary files
+					if strings.Contains(event.Name, "/dist/") || strings.HasSuffix(event.Name, ".tmp") {
+						continue
+					}
+
+					timerLock.Lock()
+					if debounceTimer != nil {
+						debounceTimer.Stop()
+					}
+					debounceTimer = time.AfterFunc(100*time.Millisecond, func() {
 						if _, err := s.Compiler.Build(s.DeckPath, ""); err == nil && s.Broadcaster != nil {
 							s.Broadcaster.Broadcast("reload", `{"reason": "fsnotify"}`)
 						}
-					}
+					})
+					timerLock.Unlock()
 				}
 			case _, ok := <-watcher.Errors:
 				if !ok {
