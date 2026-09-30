@@ -51,11 +51,17 @@ button, input, select, textarea {
 }
 
 /* Base Backdrop Container */
-.stage-backdrop {
+.stage-backdrop,
+.slide-backdrop {
     position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 1;
+}
+
+/* In interactive screen mode, stage backdrop shows; hide per-slide duplicate */
+.slide .slide-backdrop {
+    display: none;
 }
 
 /* Slide Element Rules (Fixed 1920x1080 Canvas) */
@@ -143,34 +149,113 @@ button, input, select, textarea {
     }
 }
 
-/* Print Rules for Handouts & PDF Generation */
+/* 1080p Landscape Page Rules for PDF Generation */
+@page {
+    size: 1920px 1080px;
+    margin: 0;
+}
+
+/* Print Rules for 1:1 Presentation Slide Export */
 @media print {
-    html, body {
-        overflow: visible !important;
-        background: #ffffff !important;
+    *, ::before, ::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
+
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 1920px !important;
+        overflow: visible !important;
+        background-color: var(--bg-canvas, #0a0e17) !important;
+    }
+
     .deck-viewport {
         position: static !important;
         overflow: visible !important;
+        width: 1920px !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
     }
+
     .deck-stage {
         position: static !important;
         transform: none !important;
-        width: 100% !important;
+        width: 1920px !important;
         height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
         box-shadow: none !important;
+        background: transparent !important;
     }
+
+    .hairlines::before,
+    .hairlines::after,
+    .deck-stage > .stage-backdrop {
+        display: none !important;
+    }
+
+    /* Enable per-slide backdrop on each printed page */
+    .slide-backdrop,
+    .slide .slide-backdrop {
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        pointer-events: none !important;
+        z-index: 1 !important;
+    }
+
     .slide {
         position: relative !important;
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
-        page-break-after: always;
-        break-after: page;
         width: 1920px !important;
         height: 1080px !important;
+        min-width: 1920px !important;
+        min-height: 1080px !important;
+        max-width: 1920px !important;
+        max-height: 1080px !important;
+        overflow: hidden !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        background-color: var(--bg-canvas, #0a0e17) !important;
+        z-index: 2 !important;
     }
-    .deck-hud, .keyboard-help-modal, .master-index-backdrop, .edit-toggle, .edit-hotzone {
+
+    .slide:last-of-type,
+    .slide:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+
+    .slide-frame {
+        position: absolute !important;
+        inset: 52px 56px 74px 56px !important;
+        z-index: 3 !important;
+    }
+
+    .deck-hud,
+    .keyboard-help-modal,
+    .master-index-backdrop,
+    .master-index-drawer,
+    .capture-toast,
+    .edit-toggle,
+    .edit-hotzone,
+    .studio-panel,
+    .studio-drawer,
+    .studio-toggle,
+    #captureToast,
+    #keyboardHelpModal,
+    #masterIndexDrawer,
+    #deckHud {
         display: none !important;
+        visibility: hidden !important;
     }
 }

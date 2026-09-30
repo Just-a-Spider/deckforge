@@ -148,34 +148,34 @@ func ScanDecksInRoot(root string) ([]*models.Deck, error) {
 		}
 	}
 
-	// Case 3: Scan immediate subdirectories of root (depth 1 and 2)
+	// Case 2b: Scan .deckforge/decks/ subfolder if it exists
+	dotDecksDir := models.WorkspaceDecksDir(absRoot)
+	if entries, err := os.ReadDir(dotDecksDir); err == nil {
+		for _, e := range entries {
+			if e.IsDir() {
+				target := filepath.Join(dotDecksDir, e.Name())
+				if IsDirDeck(target) {
+					if d, err := InspectDeck(target); err == nil {
+						deckMap[target] = d
+					}
+				}
+			}
+		}
+	}
+
+	// Case 3: Scan immediate child subdirectories of root (depth 1 only)
 	entries, err := os.ReadDir(absRoot)
 	if err == nil {
 		for _, e := range entries {
 			if e.IsDir() {
 				name := e.Name()
-				if strings.HasPrefix(name, ".") || name == "node_modules" || name == "dist" || name == "bin" || name == "engine" {
+				if strings.HasPrefix(name, ".") || name == "node_modules" || name == "dist" || name == "bin" || name == "engine" || name == "decks" {
 					continue
 				}
 				subPath := filepath.Join(absRoot, name)
 				if IsDirDeck(subPath) {
 					if d, err := InspectDeck(subPath); err == nil {
 						deckMap[subPath] = d
-					}
-				} else {
-					// Check depth 2 subdirectories
-					subEntries, err := os.ReadDir(subPath)
-					if err == nil {
-						for _, se := range subEntries {
-							if se.IsDir() && !strings.HasPrefix(se.Name(), ".") {
-								subSubPath := filepath.Join(subPath, se.Name())
-								if IsDirDeck(subSubPath) {
-									if d, err := InspectDeck(subSubPath); err == nil {
-										deckMap[subSubPath] = d
-									}
-								}
-							}
-						}
 					}
 				}
 			}

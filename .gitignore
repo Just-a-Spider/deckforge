@@ -3,11 +3,13 @@
 # Build outputs
 dist/
 decks/*/dist/
+decks/
+themes/
+completions/
 exports/
 
-# Binaries (preserve tracked launcher)
-bin/*
-!bin/deckforge
+# Binaries
+bin/
 
 # Editor & OS files
 .DS_Store

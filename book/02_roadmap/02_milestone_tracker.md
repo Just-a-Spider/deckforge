@@ -112,5 +112,64 @@
 - [x] Create standalone `install.sh` automated installation script
 - [x] Record ADR-0011 and verify Living Development Book audit health
 
+## Phase 13: Tiered Angular Component Engine & Unified Global Settings
+- [x] Implement `internal/editor/detector.go` with auto-detection for Cursor, VS Code, Zed, Windsurf, Sublime, Neovim, Helix, Micro, Vim, Emacs, Nano and blocking `--wait` flags
+- [x] Update `internal/models/workspace.go` with `DECKFORGE_CONFIG_DIR`, `XDG_CONFIG_HOME`, key-value `Get`/`Set`, and config isolation for unit tests
+- [x] Integrate installed editor indicators and dynamic cycling in TUI Settings view (`internal/tui/views_settings.go`)
+- [x] Implement `internal/components/manager.go` with 3-tier component resolution (Builtin, Global, Workspace) and precedence overrides
+- [x] Support dual custom component formats: single JSON files and modular directory bundles with encapsulated `component.css`
+- [x] Implement `internal/components/scaffold.go` for declarative component scaffolding
+- [x] Inject custom component CSS into HTML compilation stage in `internal/compiler/compiler.go`
+- [x] Implement CLI commands `deckforge config [list|get|set|editors|path]` and `deckforge component [list|create|inspect]`
+- [x] Implement Agent CLI commands `component-list`, `component-create`, `config-get`, `config-set`, and dynamic catalog/component-insert
+- [x] Implement Native MCP tools `deckforge_list_components`, `deckforge_create_component`, `deckforge_get_settings`, `deckforge_update_settings`, and dynamic catalog/insert
+- [x] Respect configured default theme and slide count across `deckforge init` and `deckforge agent deck-create`
 
+## Phase 14: Local .deckforge Workspace Directory Architecture & Agent/MCP Decoupling
+- [x] Establish `.deckforge/` project-level directory standard (`.deckforge/config.json`, `.deckforge/components/`, `.deckforge/themes/`, `.deckforge/decks/`)
+- [x] Implement two-tier configuration hierarchy (global baseline with local `.deckforge/config.json` overlay and `SetLocal`/`SaveLocal`)
+- [x] Update Theme Manager to scan and scaffold into `.deckforge/themes/` with fallback to `./themes/`
+- [x] Update Component Manager to scan and scaffold into `.deckforge/components/` with fallback to `./components/`
+- [x] Update Deck Discovery to scan `.deckforge/decks/` alongside `./decks/` and root folders
+- [x] Add `--local` flag to `deckforge config [set|get|path]` and `deckforge agent config-set`
+- [x] Decouple MCP JSON-RPC server from `internal/server/` into standalone `internal/mcp/` package with domain-specific tool modules
+- [x] Decouple `cmd/agent.go` into domain files (`agent_deck.go`, `agent_slide.go`, `agent_theme.go`, `agent_component.go`, `agent_tokens.go`, `agent_config.go`)
+- [x] Record ADR-0013 and verify Living Development Book audit health
+
+## Phase 15: Scoped Directory Listing, Self-Contained Agent Context & 1:1 Landscape PDF Engine
+- [x] Scope `deckforge list` exclusively to presentations in current directory / workspace (`.deckforge/decks/`, `decks/`, or root if deck)
+- [x] Remove unsolicited global theme dump from `deckforge list` (available via `deckforge theme list` or `deckforge list --themes`)
+- [x] Restrict `ScanDecksInRoot` to immediate child directories (depth 1 only), preventing cross-repo traversal
+- [x] Guarantee `targetRoot` in `models.LoadWorkspaceConfigForRoot` defaults to `cwd` to prevent foreign workspace hijacking
+- [x] Add Zero Engine Dependency directive in `SKILL.md` and `runAgentExportSkill` to isolate agent context to consumer repos
+- [x] Purge `deckforge book log` from end-user agent skills
+- [x] Remove hardcoded user paths in `internal/exporter/exporter.go` and implement dynamic cross-platform discovery
+- [x] Implement modern headless Chrome flags (`--headless=new`, `--run-all-compositor-stages-before-draw`, `--virtual-time-budget=3000`)
+- [x] Add `@page { size: 1920px 1080px; margin: 0; }` and `print-color-adjust: exact` in `stage.css`
+- [x] Preserve theme canvas background and suppress non-slide DOM elements in print CSS
+- [x] Make `book/SUMMARY.md` and `cmd/book.go audit` 100% portable with relative links
+- [x] Record ADR-0014 and verify Living Development Book audit health
+
+## Phase 16: Chromedp CDP Export Engine, Companion Node Script, and 1:1 Theme Color Parity
+- [x] Integrate `github.com/chromedp/chromedp` library into `internal/exporter/` for DevTools Protocol export
+- [x] Synchronously await `document.fonts.ready` before PDF generation, eliminating fallback fonts
+- [x] Create standalone zero-dependency Node CDP runner in `scripts/export-pdf.mjs`
+- [x] Add `--engine` (`chromedp`, `node`, `cli`) and `--timeout` flags to `deckforge export`
+- [x] Inject `.slide-backdrop` inside each slide in `internal/compiler/compiler.go`
+- [x] Map `.stage-backdrop` to `.stage-backdrop, .slide-backdrop` in `internal/models/theme.go`
+- [x] Enable `.slide-backdrop` in `engine/core/stage.css` `@media print` with proper z-indexing
+- [x] Verify visual color parity, radial gradients, cyber grids, and typography across light and dark decks
+- [x] Record ADR-0015 and verify DevBook audit health
+
+## Phase 17: Universal Workspace Anchoring, Upward Theme Traversal & Embedded Portable Runners
+- [x] Implement `DetectWorkspaceRoot(targetPath)` in `internal/workspace/root.go` with upward recursive tree discovery
+- [x] Add unit tests in `internal/workspace/root_test.go` covering nested decks, slide files, and direct `.deckforge` references
+- [x] Implement recursive upward ancestor tree scanning and `cwd` scanning in `ThemeManager.ListThemes(deckPath)`
+- [x] Implement diagnostic warnings on fallback in `ThemeManager.ResolveTheme` to eliminate silent style regressions
+- [x] Implement recursive upward ancestor tree scanning and `cwd` scanning in `ComponentManager.ListComponents(deckPath)`
+- [x] Anchor `runExport`, `runBuild`, `runServe`, `runList`, `runTheme`, and `runComponent` to `workspace.DetectWorkspaceRoot`
+- [x] Embed `scripts/export-pdf.mjs` into `internal/exporter` binary package via `//go:embed`
+- [x] Fallback to cache directory extraction in `exportWithNode` so `deckforge export --engine node` works standalone anywhere
+- [x] Verify global installation (`make install`) in external workspace (`~/Desktop/Projects/SysMon`) with 100% theme color accuracy
+- [x] Record ADR-0016 and verify DevBook audit health
 

@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"deckforge/internal/assets"
+	"deckforge/internal/components"
 	"deckforge/internal/theme"
 	"deckforge/internal/workspace"
 )
@@ -58,6 +59,12 @@ func (c *Compiler) Build(deckPath, overrideTheme string) (string, error) {
 	compCSS := c.loadAsset("core/components.css")
 	studioCSS := c.loadAsset("core/studio.css")
 
+	// Inject custom component CSS if any custom components exist
+	cm := components.NewComponentManager(deckPath)
+	if customCompCSS := cm.CompileComponentCSS(deckPath); customCompCSS != "" {
+		compCSS = compCSS + "\n\n/* --- Multi-Tier Custom Components --- */\n" + customCompCSS
+	}
+
 	// Load core JS
 	captureJS := c.loadAsset("core/capture.js")
 	studioJS := c.loadAsset("core/studio.js")
@@ -72,7 +79,13 @@ func (c *Compiler) Build(deckPath, overrideTheme string) (string, error) {
 		if err != nil {
 			return "", fmt.Errorf("error reading slide %s: %w", s.Path, err)
 		}
-		slideContents = append(slideContents, strings.TrimSpace(string(data)))
+		raw := strings.TrimSpace(string(data))
+		if strings.Contains(raw, "<section") && !strings.Contains(raw, "slide-backdrop") {
+			if idx := strings.Index(raw, ">"); idx != -1 {
+				raw = raw[:idx+1] + "\n        <div class=\"slide-backdrop\"></div>" + raw[idx+1:]
+			}
+		}
+		slideContents = append(slideContents, raw)
 	}
 	allSlidesHTML := strings.Join(slideContents, "\n\n")
 

@@ -23,7 +23,10 @@ type ComponentDefinition struct {
 	Inputs          []ComponentInput `json:"inputs"`
 	Slots           []string         `json:"slots,omitempty"`
 	Classes         []string         `json:"classes,omitempty"`
+	Styles          string           `json:"styles,omitempty"`
 	TemplateSnippet string           `json:"templateSnippet"`
+	Scope           string           `json:"scope,omitempty"`      // "builtin", "global", "workspace"
+	SourcePath      string           `json:"sourcePath,omitempty"` // Path on disk if custom
 }
 
 // Render compiles the component template with supplied inputs and slots

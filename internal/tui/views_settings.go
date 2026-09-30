@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"deckforge/internal/editor"
 	"deckforge/internal/models"
 	"deckforge/internal/theme"
 
@@ -35,7 +36,37 @@ type SettingsView struct {
 }
 
 func NewSettingsView(cfg *models.WorkspaceConfig) *SettingsView {
-	editors := []string{"auto", "code", "nvim", "vim", "nano"}
+	installedMap := make(map[string]bool)
+	for _, inst := range editor.DetectInstalledEditors() {
+		installedMap[inst.ID] = true
+	}
+
+	editors := []string{"auto"}
+	// First add installed known editors
+	for _, k := range editor.KnownEditors() {
+		if installedMap[k.ID] {
+			editors = append(editors, k.ID)
+		}
+	}
+	// Then add remaining known editors
+	for _, k := range editor.KnownEditors() {
+		if !installedMap[k.ID] {
+			editors = append(editors, k.ID)
+		}
+	}
+
+	// Preserve current preference if custom
+	found := false
+	for _, ed := range editors {
+		if ed == cfg.PreferredEditor {
+			found = true
+			break
+		}
+	}
+	if !found && cfg.PreferredEditor != "" {
+		editors = append(editors, cfg.PreferredEditor)
+	}
+
 	presets := theme.GetBuiltinPresets()
 	ports := []int{8080, 3000, 8000, 5000, 9000}
 
@@ -182,11 +213,20 @@ func (v *SettingsView) View() string {
 		))
 	}
 
-	edName := v.EditorOptions[v.EditorIndex]
-	if edName == "auto" {
-		edName = "auto ($EDITOR)"
+	edKey := v.EditorOptions[v.EditorIndex]
+	edDisplay := edKey
+	if edKey == "auto" {
+		edDisplay = "auto ($EDITOR)"
+	} else {
+		// Check if installed
+		for _, inst := range editor.DetectInstalledEditors() {
+			if inst.ID == edKey {
+				edDisplay = fmt.Sprintf("%s [installed]", edKey)
+				break
+			}
+		}
 	}
-	renderRow(SettingEditor, "1. External Editor ($EDITOR):", edName, "code, nvim, vim, nano")
+	renderRow(SettingEditor, "1. External Editor ($EDITOR):", edDisplay, "cursor, code, zed, windsurf, nvim, micro")
 
 	thName := v.ThemePresets[v.ThemeIndex].Tokens.DisplayName
 	renderRow(SettingTheme, "2. Default Presentation Theme:", thName, "Preset for new decks")

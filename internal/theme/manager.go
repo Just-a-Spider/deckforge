@@ -17,11 +17,9 @@ type ThemeManager struct {
 
 // NewThemeManager initializes manager with workspace and global paths
 func NewThemeManager(workspaceRoot string) *ThemeManager {
-	home, _ := os.UserHomeDir()
-	globalDir := filepath.Join(home, ".config", "deckforge", "themes")
 	return &ThemeManager{
 		WorkspaceRoot: workspaceRoot,
-		GlobalDir:     globalDir,
+		GlobalDir:     models.GlobalThemesDir(),
 	}
 }
 
@@ -40,9 +38,40 @@ func (m *ThemeManager) ListThemes(deckPath string) []models.Theme {
 		scanThemesInDir(m.GlobalDir, "global", themeMap)
 	}
 
-	// 3. Scan workspace themes (<workspace>/themes/<name>/) (Scope: "workspace")
+	// 3. Scan workspace themes: first legacy <workspace>/themes, then <workspace>/.deckforge/themes (higher precedence)
 	if m.WorkspaceRoot != "" {
 		scanThemesInDir(filepath.Join(m.WorkspaceRoot, "themes"), "workspace", themeMap)
+		scanThemesInDir(models.WorkspaceThemesDir(m.WorkspaceRoot), "workspace", themeMap)
+	}
+
+	// 4. Scan deck local themes and walk up from deckPath to discover enclosing themes
+	if deckPath != "" {
+		absDeck, err := filepath.Abs(deckPath)
+		if err == nil {
+			var ancestors []string
+			curr := absDeck
+			for {
+				ancestors = append([]string{curr}, ancestors...)
+				parent := filepath.Dir(curr)
+				if parent == curr || parent == "." || parent == "/" {
+					break
+				}
+				curr = parent
+			}
+			for _, p := range ancestors {
+				scanThemesInDir(filepath.Join(p, "themes"), "workspace", themeMap)
+				scanThemesInDir(models.WorkspaceThemesDir(p), "workspace", themeMap)
+			}
+		} else {
+			scanThemesInDir(filepath.Join(deckPath, "themes"), "workspace", themeMap)
+			scanThemesInDir(models.WorkspaceThemesDir(deckPath), "workspace", themeMap)
+		}
+	}
+
+	// 5. Scan current working directory if not already covered
+	if cwd, err := os.Getwd(); err == nil {
+		scanThemesInDir(filepath.Join(cwd, "themes"), "workspace", themeMap)
+		scanThemesInDir(models.WorkspaceThemesDir(cwd), "workspace", themeMap)
 	}
 
 	var result []models.Theme
@@ -52,7 +81,7 @@ func (m *ThemeManager) ListThemes(deckPath string) []models.Theme {
 	return result
 }
 
-// SeedTheme exports a built-in preset template to workspace ./themes/ or user config ~/.config/deckforge/themes/
+// SeedTheme exports a built-in preset template to workspace .deckforge/themes/ or user config ~/.config/deckforge/themes/
 func (m *ThemeManager) SeedTheme(presetName string, global bool) (models.Theme, error) {
 	return m.SeedThemeAs(presetName, presetName, global, false)
 }
@@ -66,7 +95,7 @@ func (m *ThemeManager) SeedThemeAs(presetName, targetName string, global bool, s
 	if global {
 		targetDir = filepath.Join(m.GlobalDir, targetName)
 	} else {
-		targetDir = filepath.Join(m.WorkspaceRoot, "themes", targetName)
+		targetDir = filepath.Join(models.WorkspaceThemesDir(m.WorkspaceRoot), targetName)
 	}
 	cloned, err := m.ClonePresetSCSS(presetName, targetName, targetDir, scss)
 	if err != nil {
@@ -96,7 +125,7 @@ func (m *ThemeManager) CreateTheme(name string, basePreset string, global bool, 
 		targetDir = filepath.Join(m.GlobalDir, name)
 		scope = "global"
 	} else {
-		targetDir = filepath.Join(m.WorkspaceRoot, "themes", name)
+		targetDir = filepath.Join(models.WorkspaceThemesDir(m.WorkspaceRoot), name)
 	}
 
 	theme := models.Theme{
@@ -176,12 +205,22 @@ func (m *ThemeManager) ResolveTheme(name string, deckPath string) (models.Theme,
 			return t, nil
 		}
 	}
-	// Fallback to academic-crimson preset
+	// Fallback to academic-crimson preset with diagnostic warning
 	fallback, found := GetPresetByName("academic-crimson")
 	if found {
+		fmt.Fprintf(os.Stderr, "Warning: Theme '%s' not found across workspace (%s), deck (%s), or global. Falling back to preset 'academic-crimson'. Available themes: %s\n",
+			name, m.WorkspaceRoot, deckPath, themeNames(all))
 		return fallback, nil
 	}
 	return models.Theme{}, fmt.Errorf("theme '%s' not found and fallback failed", name)
+}
+
+func themeNames(themes []models.Theme) string {
+	names := make([]string, len(themes))
+	for i, t := range themes {
+		names[i] = t.Tokens.Name
+	}
+	return strings.Join(names, ", ")
 }
 
 // ClonePreset creates a new segmented theme on disk based on a built-in preset

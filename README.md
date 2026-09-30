@@ -1,6 +1,32 @@
 # DeckForge
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8?logo=go)](go.mod)
+[![CI](https://github.com/Just-a-Spider/deckforge/actions/workflows/ci.yml/badge.svg)](https://github.com/Just-a-Spider/deckforge/actions/workflows/ci.yml)
+
 High-performance, modular 1080p slide presentation platform written in 100% pure Go. Designed for terminal-driven workflows, zero-dependency HTML distribution, segmented theme management, and seamless external editor integration (`$EDITOR`).
+
+---
+
+## Installation
+
+### One-Line Automated Install
+
+```bash
+git clone https://github.com/Just-a-Spider/deckforge.git
+cd deckforge
+./install.sh
+```
+
+### Build from Source
+
+```bash
+git clone https://github.com/Just-a-Spider/deckforge.git
+cd deckforge
+make install
+```
+
+This compiles a stripped, static binary and installs it to `~/.local/bin/deckforge` (and `$GOPATH/bin/deckforge` if configured). Optional shell autocompletions (`fish`) and AI agent skills can be installed via `make install-all`.
 
 ---
 
@@ -142,3 +168,68 @@ When viewing compiled slides in a browser:
 - `F`: Toggle fullscreen
 - `?` / `H`: Show keyboard navigation guide
 - `Esc`: Close drawers, modals, and exit edit mode
+
+---
+
+## AI Agent & MCP Integration
+
+DeckForge includes a native [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server and headless agent CLI for autonomous slide generation, theme updates, and WCAG contrast validation.
+
+### Configure MCP Server in Claude Desktop / Cursor
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "deckforge": {
+      "command": "deckforge",
+      "args": ["agent", "mcp"]
+    }
+  }
+}
+```
+
+### Agent CLI Subcommands
+
+```bash
+# JSON inspection of decks
+deckforge agent deck-list
+deckforge agent deck-inspect <path>
+
+# Programmatic slide modifications
+deckforge agent slide-add <deck_path> "Slide Title" --layout 2col
+deckforge agent slide-edit <slide_file> --content "..."
+
+# Token diagnostics & WCAG compliance
+deckforge agent tokens-diagnose <deck_path>
+deckforge agent tokens-set <deck_path> --bg "#0f172a" --text "#f8f9fc"
+
+# Component insertion
+deckforge agent component-insert <slide_file> <archetype>
+```
+
+---
+
+## Attribution & Origins
+
+DeckForge was created based on the visual design principles and preset archetypes from the official `frontend-slides` skill. It expands those curated aesthetics into a standalone, pure Go presentation engine featuring:
+
+- Interactive Bubble Tea TUI
+- Headless Chromium CDP PDF export engine
+- Embedded Model Context Protocol (MCP) server & AI CLI interface
+- Modular CSS/SCSS token architecture
+- Living Development Book specification tracker
+
+---
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md) before submitting pull requests or reporting issues.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+

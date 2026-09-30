@@ -32,7 +32,11 @@ func (t *Theme) CompileFullCSS() string {
 		sb.WriteString(fmt.Sprintf("\n/* Surfaces Segment */\n%s\n", t.SurfacesCSS))
 	}
 	if strings.TrimSpace(t.BackdropCSS) != "" {
-		sb.WriteString(fmt.Sprintf("\n/* Backdrop Segment */\n%s\n", t.BackdropCSS))
+		backdrop := t.BackdropCSS
+		if strings.Contains(backdrop, ".stage-backdrop") && !strings.Contains(backdrop, ".slide-backdrop") {
+			backdrop = strings.ReplaceAll(backdrop, ".stage-backdrop", ".stage-backdrop, .slide-backdrop")
+		}
+		sb.WriteString(fmt.Sprintf("\n/* Backdrop Segment */\n%s\n", backdrop))
 	}
 	if strings.TrimSpace(t.ComponentsCSS) != "" {
 		sb.WriteString(fmt.Sprintf("\n/* Components Segment */\n%s\n", t.ComponentsCSS))

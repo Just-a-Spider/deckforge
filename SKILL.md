@@ -7,6 +7,14 @@ description: Autonomous and interactive management of DeckForge modular 1080p sl
 
 Use this skill whenever working in repositories containing DeckForge presentations (`deck.json`, `slides/*.html`, or running `deckforge`).
 
+## 0. Zero Engine Dependency (Self-Contained Protocol)
+- **NEVER search for, clone, or read files in the `deckforge` engine repository**.
+- The `deckforge` binary is globally available and fully self-contained. All styling, components, and presets are queryable at runtime.
+- For component schemas and slots: run `deckforge agent catalog` (or MCP `deckforge_get_catalog`).
+- For CSS classes and layout rules: run `deckforge agent styling-guide` (or MCP `deckforge_get_styling_guide`).
+- For theme presets: run `deckforge agent theme-list` (or MCP `deckforge_list_themes`).
+- All generated presentations belong strictly in `<workspace>/.deckforge/decks/<name>/` or `./decks/<name>/`.
+
 ## 1. Non-Negotiable Geometry Constraints
 - All slides render on a fixed **1920x1080 canvas** (`Math.min(W/1920, H/1080)`).
 - Never use dynamic viewport height/width (`vh`, `vw`).
@@ -39,16 +47,30 @@ Always prefer the structured JSON CLI commands over manual raw text edits when p
 - `deckforge agent tokens-audit <deck-path>`
 - `deckforge agent tokens-fix <deck-path> --apply`
 - `deckforge agent component-insert <deck-path> <index> <selector> [--props <json>]`
-- `deckforge book log "<achievement>"`
+- `deckforge agent component-list [deck-path]` (list multi-tier components)
+- `deckforge agent component-create <name> [--category <cat>] [--global] [--styles]`
+- `deckforge agent config-get <key> [deck-path]`
+- `deckforge agent config-set <key> <val> [--local]`
 
-## 5. Model Context Protocol (MCP) Tools
-When connected via stdio (`deckforge mcp <deck-path>`):
+## 5. Local `.deckforge/` Workspace Directory Standard
+DeckForge supports a clean project-level `.deckforge/` folder in workspace roots:
+- `.deckforge/config.json`: Local configuration overrides (takes precedence over global config).
+- `.deckforge/components/`: Project-specific custom Angular-style components.
+- `.deckforge/themes/`: Project-specific themes with custom tokens and stylesheets.
+- `.deckforge/decks/`: Project presentations managed within the workspace.
+
+## 6. Model Context Protocol (MCP) Tools
+When connected via stdio (`deckforge mcp [deck-path]`):
 - `deckforge_get_catalog`: Introspect all component schemas, inputs, and slots.
 - `deckforge_get_styling_guide`: Introspect all styling rules, CSS classes, and tokens.
 - `deckforge_create_deck`: Scaffold new presentation.
 - `deckforge_list_themes`: Enumerate available themes with palette metadata.
 - `deckforge_set_theme`: Switch theme in `deck.json` and recompile.
 - `deckforge_create_theme`: Scaffold new theme skeleton or preset clone with CSS or SCSS.
+- `deckforge_list_components`: Enumerate all components with scope metadata.
+- `deckforge_create_component`: Scaffold custom component definition in workspace or global scope.
+- `deckforge_get_settings`: Retrieve configuration, active workspace root, and detected editors.
+- `deckforge_update_settings`: Update configuration key.
 - `deckforge_list_slides`: Enumerate all slides.
 - `deckforge_get_slide`: Read slide HTML by index.
 - `deckforge_update_slide`: Write clean slide HTML and recompile.

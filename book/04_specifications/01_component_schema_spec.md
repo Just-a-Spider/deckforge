@@ -45,13 +45,33 @@
       "items": { "type": "string" },
       "description": "Default CSS utility classes attached to root"
     },
+    "styles": {
+      "type": "string",
+      "description": "Encapsulated CSS rules injected into presentation stage"
+    },
     "templateSnippet": {
       "type": "string",
       "description": "Go template snippet producing clean HTML"
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["builtin", "global", "workspace"],
+      "description": "Component origin tier"
     }
   }
 }
 ```
+
+## Tiered Component Architecture
+
+Components are resolved across three scopes with deterministic overriding:
+1. **Workspace Root** (`<workspace>/components/` or `<deck>/components/`): Highest priority, presentation-specific or project-specific components.
+2. **Global User Scope** (`~/.config/deckforge/components/` or `$DECKFORGE_CONFIG_DIR/components/`): Reusable components shared across all presentations.
+3. **Built-in Presets**: 7 core high-contrast archetypes embedded directly in the binary.
+
+Components can be packaged as:
+- **Single-file JSON**: `<selector>.json` containing complete schema and inline `styles`.
+- **Directory Bundles**: `<selector>/` containing `component.json` and companion `component.css` or `styles.css`.
 
 ## Built-in Components Catalog
 

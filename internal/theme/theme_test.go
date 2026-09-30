@@ -37,7 +37,7 @@ func TestThemeScopingAndSeeding(t *testing.T) {
 	if seededWork.Scope != "workspace" {
 		t.Fatalf("Expected scope 'workspace', got '%s'", seededWork.Scope)
 	}
-	if _, err := os.Stat(filepath.Join(workspaceRoot, "themes", "cyber-dark", "tokens.json")); err != nil {
+	if _, err := os.Stat(filepath.Join(seededWork.Dir, "tokens.json")); err != nil {
 		t.Fatalf("Expected tokens.json in workspace themes dir: %v", err)
 	}
 

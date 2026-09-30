@@ -1,8 +1,9 @@
 package tui
 
 import (
-	"os"
 	"os/exec"
+
+	"deckforge/internal/editor"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -14,37 +15,7 @@ type EditorFinishedMsg struct {
 
 // FindPreferredEditor resolves editor executable and initial flags based on preference
 func FindPreferredEditor(pref string) (string, []string) {
-	if pref != "" && pref != "auto" {
-		switch pref {
-		case "code", "code --wait":
-			if path, err := exec.LookPath("code"); err == nil {
-				return path, []string{"--wait"}
-			}
-		default:
-			if path, err := exec.LookPath(pref); err == nil {
-				return path, nil
-			}
-		}
-	}
-
-	if ed := os.Getenv("EDITOR"); ed != "" {
-		return ed, nil
-	}
-	if vis := os.Getenv("VISUAL"); vis != "" {
-		return vis, nil
-	}
-
-	for _, cand := range []string{"nvim", "vim", "nano", "vi"} {
-		if path, err := exec.LookPath(cand); err == nil {
-			return path, nil
-		}
-	}
-
-	if codePath, err := exec.LookPath("code"); err == nil {
-		return codePath, []string{"--wait"}
-	}
-
-	return "nano", nil
+	return editor.ResolveEditorCommand(pref)
 }
 
 // OpenInEditor spawns the external editor suspended in the foreground

@@ -133,8 +133,8 @@ func TestThemeCreationTooling(t *testing.T) {
 	if created.Scope != "workspace" {
 		t.Errorf("expected scope workspace, got %s", created.Scope)
 	}
-	if _, err := os.Stat(filepath.Join(tmpDir, "themes", "my-custom", "surfaces.scss")); err != nil {
-		t.Errorf("expected surfaces.scss to exist: %v", err)
+	if _, err := os.Stat(filepath.Join(created.Dir, "surfaces.scss")); err != nil {
+		t.Errorf("expected surfaces.scss to exist in %s: %v", created.Dir, err)
 	}
 
 	// 2. Create global theme with base preset

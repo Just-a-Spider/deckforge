@@ -175,23 +175,29 @@ func auditBook() {
 		return
 	}
 
-	linkRegex := regexp.MustCompile(`\[.*?\]\((file://.*?\.md)\)`)
+	linkRegex := regexp.MustCompile(`\[.*?\]\(([^\)]+\.md)\)`)
 	matches := linkRegex.FindAllStringSubmatch(string(data), -1)
 
-	checkedFiles := 0
+	validLinks := 0
 	for _, m := range matches {
 		if len(m) > 1 {
-			target := strings.TrimPrefix(m[1], "file://")
-			if _, err := os.Stat(target); err != nil {
-				fmt.Printf("  [FAIL] Broken document link: %s\n", target)
+			target := m[1]
+			var checkPath string
+			if strings.HasPrefix(target, "file://") {
+				checkPath = strings.TrimPrefix(target, "file://")
+			} else {
+				checkPath = filepath.Join(bookDir, target)
+			}
+			if _, err := os.Stat(checkPath); err != nil {
+				fmt.Printf("  [FAIL] Broken link: %s (resolved: %s)\n", target, checkPath)
 				allPassed = false
 			} else {
-				checkedFiles++
+				validLinks++
 			}
 		}
 	}
 
-	fmt.Printf("  [PASS] Verified %d linked documents\n", checkedFiles)
+	fmt.Printf("  [PASS] Verified %d linked documents\n", validLinks)
 	if allPassed {
 		fmt.Println("\nDevBook Audit: 100% HEALTHY")
 	} else {

@@ -21,3 +21,8 @@
 | 2026-09-09 | Test | `current` | Verified Global SCSS Theme creation (`frosted-crimson`): SCSS mixins/nesting transpiled via sass/npx, global scope discovery, and verified 100% WCAG AAA | andre |
 | 2026-09-09 | Progress | `current` | Implemented First-Class Theme Creation Tooling: `deckforge theme create/seed/clone`, `deckforge agent theme-create`, and MCP tool `deckforge_create_theme` with CSS/SCSS and workspace/global scope flags | andre |
 | 2026-09-09 | Phase 12 | `current` | Phase 12 Complete: Subprocess SHA-256 SCSS Caching (600x speedup, 3.6s -> 6ms), stripped 11MB binary, Fish shell completions, Makefile, install.sh, and ADR-0011 recorded | andre |
+| 2026-09-10 | Progress | `f813413` | Phase 13 Complete: Tiered Angular Component Engine, Scaffolding, and Unified Global Settings | andre |
+| 2026-09-10 | Progress | `f813413` | Phase 14 Complete: Local .deckforge Workspace Directory Architecture & Agent/MCP Decoupling | andre |
+| 2026-09-10 | Progress | `f813413` | Phase 15 Complete: Scoped Listing, Self-Contained Agent Context, Universal Portability, and 1:1 Landscape PDF Engine | andre |
+| 2026-09-10 | Progress | `f813413` | Phase 16 Complete: Chromedp CDP Library, Mini Node Script, and 1:1 Theme Color Parity | andre |
+| 2026-09-10 | Progress | `f813413` | Phase 17 Complete: Universal Workspace Anchoring and Embedded Portable Runners | andre |

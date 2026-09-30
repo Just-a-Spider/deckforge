@@ -16,6 +16,15 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
+func TestMain(m *testing.M) {
+	tempConfigDir, err := os.MkdirTemp("", "deckforge-test-config-*")
+	if err == nil {
+		os.Setenv("DECKFORGE_CONFIG_DIR", tempConfigDir)
+		defer os.RemoveAll(tempConfigDir)
+	}
+	os.Exit(m.Run())
+}
+
 func TestScaffoldNavigationNoPanic(t *testing.T) {
 	v := NewScaffoldView("/tmp")
 
