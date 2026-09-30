@@ -11,7 +11,7 @@ all: build
 build:
 	@echo "Building stripped DeckForge binary..."
 	@mkdir -p bin
-	go build -ldflags="$(LDFLAGS)" -trimpath -o bin/deckforge .
+	CGO_ENABLED=0 go build -ldflags="$(LDFLAGS)" -trimpath -o bin/deckforge .
 
 install: build
 	@echo "Installing DeckForge binary to $(PREFIX)/bin..."

@@ -17,7 +17,7 @@ INSTALL_BIN="${HOME}/.local/bin"
 mkdir -p "$INSTALL_BIN"
 
 echo "-> Compiling stripped binary (v${VERSION})..."
-go build -ldflags="-s -w -X 'deckforge/cmd.Version=${VERSION}'" -trimpath -o bin/deckforge .
+CGO_ENABLED=0 go build -ldflags="-s -w -X 'deckforge/cmd.Version=${VERSION}'" -trimpath -o bin/deckforge .
 
 echo "-> Installing binary to ${INSTALL_BIN}/deckforge..."
 cp bin/deckforge "${INSTALL_BIN}/deckforge"

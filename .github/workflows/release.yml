@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+
+      - name: Extract Tag Version
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Compile Multi-Platform Static Binaries
+        env:
+          VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          mkdir -p dist
+          LDFLAGS="-s -w -X 'deckforge/cmd.Version=${VERSION}'"
+          
+          # Linux AMD64 (Universal static, runs on any distro)
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="${LDFLAGS}" -trimpath -o dist/deckforge-${VERSION}-linux-amd64 .
+          
+          # Linux ARM64 (Raspberry Pi, AWS Graviton, etc.)
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="${LDFLAGS}" -trimpath -o dist/deckforge-${VERSION}-linux-arm64 .
+          
+          # macOS AMD64 (Intel)
+          CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="${LDFLAGS}" -trimpath -o dist/deckforge-${VERSION}-darwin-amd64 .
+          
+          # macOS ARM64 (Apple Silicon M1/M2/M3/M4)
+          CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="${LDFLAGS}" -trimpath -o dist/deckforge-${VERSION}-darwin-arm64 .
+          
+          # Windows AMD64
+          CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="${LDFLAGS}" -trimpath -o dist/deckforge-${VERSION}-windows-amd64.exe .
+
+          # Create tar.gz / zip archives
+          cd dist
+          tar -czvf deckforge-${VERSION}-linux-amd64.tar.gz deckforge-${VERSION}-linux-amd64
+          tar -czvf deckforge-${VERSION}-linux-arm64.tar.gz deckforge-${VERSION}-linux-arm64
+          tar -czvf deckforge-${VERSION}-darwin-amd64.tar.gz deckforge-${VERSION}-darwin-amd64
+          tar -czvf deckforge-${VERSION}-darwin-arm64.tar.gz deckforge-${VERSION}-darwin-arm64
+          zip deckforge-${VERSION}-windows-amd64.zip deckforge-${VERSION}-windows-amd64.exe
+
+          # Generate SHA256 checksums
+          sha256sum *.tar.gz *.zip > checksums.txt
+          cd ..
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.tar.gz
+            dist/*.zip
+            dist/checksums.txt
+          generate_release_notes: true
+          draft: false
+          prerelease: false
